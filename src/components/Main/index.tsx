@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import axios, { AxiosResponse } from 'axios'; // Importe o Axios com AxiosResponse para obter tipos de resposta
-
+import axios, { AxiosResponse } from 'axios'; 
 import engineerImg from '@/assets/engenheiro-rubraz-calculadora-distancia.png';
 import './style.css';
 
@@ -21,7 +20,7 @@ export const Main: React.FC = () => {
       const response: AxiosResponse = await axios.post('/parceiros/backend/calcular_distancia.php', formData);
       
       if(response.data){
-        //handleResponseSuccess(response.data)
+        handleResponseSuccess(response.data)
       }
     } catch (error) {
       console.error('Erro ao enviar os dados:', error);
