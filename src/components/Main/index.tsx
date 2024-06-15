@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios, { AxiosResponse } from 'axios'; // Importe o Axios com AxiosResponse para obter tipos de resposta
 
 import engineerImg from '@/assets/engenheiro-rubraz-calculadora-distancia.png';
 import './style.css';
 
 export const Main: React.FC = () => {
-
+  const [distanceText, setDistanceText] = useState(0)
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault(); // Evita o envio padrão do formulário
 
@@ -32,7 +32,7 @@ export const Main: React.FC = () => {
               <span className='text-yellow-rubraz text-5xl font-normal'>de Distância</span>
             </h1>
 
-            <form id="distanceForm" onSubmit={handleSubmit}> {/* Adicione onSubmit para chamar a função handleSubmit */}
+            <form id="distanceForm" onSubmit={handleSubmit}> 
               <fieldset className="flex flex-col mb-4 ">
                 <label htmlFor='destino' className='font-bold text-white text-2xl mb-4'>Destino</label>
                 <input type="text" id="destino" name="destino" placeholder="Endereço de Destino" className='rounded-full p-4 text-black outline-none' required />
@@ -40,7 +40,10 @@ export const Main: React.FC = () => {
               <input className='calc-button bg-yellow-rubraz p-4 rounded-full text-center font-bold cursor-pointer hover:bg-light-yellow-rubraz text-lg tracking-wide' type="submit" value="Calcular Distância" />
             </form>
 
-            <div id="resultado"></div>
+            <div id="resultado" className=''>
+              <h3 className='font-bold mb-2 text-xl'>Resultado</h3>
+              <p>A distância entre a origem e o destino é: {distanceText} km</p>
+            </div>
 
             <div className=" text-black rounded-xl p-6 -mb-4 absolute bottom-16 text-left z-20 ">
               <p><span className='font-bold'>CNPJ: </span>22.577.009/0001-00 </p>
