@@ -57,7 +57,7 @@ export const Main: React.FC = () => {
               <p><span className='font-bold'>CREA-RJ: </span>2023200826 </p>
             </div>
 
-            <div className="absolute bg-yellow-rubraz text-black rounded-t-[50px] w-full h-36 bottom-[3%] -left-[60%]">
+            <div className="absolute bg-yellow-rubraz text-black rounded-t-[50px] w-full h-36 bottom-[3%] -left-[60%] z-10">
             </div>
 
           </div>
