@@ -6,15 +6,23 @@ import './style.css';
 
 export const Main: React.FC = () => {
   const [distanceText, setDistanceText] = useState(0)
+  const [invisible, setInvisible] = useState('invisible')
+  const handleResponseSuccess = (responseData:any) => {
+    setInvisible('')
+    setDistanceText(responseData)
+  }
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault(); // Evita o envio padrão do formulário
+    event.preventDefault();
 
     const form = event.currentTarget;
     const formData = new FormData(form);
-
+    
     try {
       const response: AxiosResponse = await axios.post('/parceiros/backend/calcular_distancia.php', formData);
-      console.log(response.data); // Trate a resposta conforme necessário
+      
+      if(response.data){
+        //handleResponseSuccess(response.data)
+      }
     } catch (error) {
       console.error('Erro ao enviar os dados:', error);
     }
@@ -40,7 +48,7 @@ export const Main: React.FC = () => {
               <input className='calc-button bg-yellow-rubraz p-4 rounded-full text-center font-bold cursor-pointer hover:bg-light-yellow-rubraz text-lg tracking-wide' type="submit" value="Calcular Distância" />
             </form>
 
-            <div id="resultado" className=''>
+            <div id="resultado" className={`${invisible}`}>
               <h3 className='font-bold mb-2 text-xl'>Resultado</h3>
               <p>A distância entre a origem e o destino é: {distanceText} km</p>
             </div>
