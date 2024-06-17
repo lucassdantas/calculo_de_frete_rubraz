@@ -4,9 +4,9 @@ import engineerImg from '@/assets/engenheiro-rubraz-calculadora-distancia.png';
 import './style.css';
 
 export const Main: React.FC = () => {
-  const [distanceText, setDistanceText] = useState(0)
-  const [invisible, setInvisible] = useState('visible')
-  const handleResponseSuccess = (responseData:any) => {
+  const [distanceText, setDistanceText] = useState<string>('')
+  const [invisible, setInvisible] = useState<string>('invisible')
+  const handleResponseSuccess = (responseData:string) => {
     setInvisible('')
     setDistanceText(responseData)
   }
