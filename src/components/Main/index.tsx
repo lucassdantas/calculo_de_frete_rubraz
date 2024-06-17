@@ -6,13 +6,15 @@ import './style.css';
 export const Main: React.FC = () => {
   const [distanceText, setDistanceText] = useState<string>('')
   const [invisible, setInvisible] = useState<string>('invisible')
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+
   const handleResponseSuccess = (responseData:string) => {
     setInvisible('')
     setDistanceText(responseData)
   }
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
+    setIsLoading(true);
     const form = event.currentTarget;
     const formData = new FormData(form);
     
@@ -24,6 +26,9 @@ export const Main: React.FC = () => {
 
     } catch (error) {
       console.error('Erro ao enviar os dados:', error);
+    }
+    finally{
+      setIsLoading(false)
     }
   };
 
@@ -47,10 +52,20 @@ export const Main: React.FC = () => {
               <input className='calc-button bg-yellow-rubraz p-4 rounded-full text-center font-bold cursor-pointer hover:bg-light-yellow-rubraz text-lg tracking-wide' type="submit" value="Calcular Distância" />
             </form>
 
-            <div id="resultado" className={`${invisible} lg:my-0 my-12`}>
-              <h3 className='font-bold mb-2 text-xl'>Resultado</h3>
-              <p>A distância entre a origem e o destino é: {distanceText}</p>
-            </div>
+            {
+              isLoading && 
+              <div className='w-[70px]'>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><radialGradient id="a8" cx=".66" fx=".66" cy=".3125" fy=".3125" gradientTransform="scale(1.5)"><stop offset="0" stop-color="#FCBA08"></stop><stop offset=".3" stop-color="#FCBA08" stop-opacity=".9"></stop><stop offset=".6" stop-color="#FCBA08" stop-opacity=".6"></stop><stop offset=".8" stop-color="#FCBA08" stop-opacity=".3"></stop><stop offset="1" stop-color="#FCBA08" stop-opacity="0"></stop></radialGradient><circle transform-origin="center" fill="none" stroke="url(#a8)" stroke-width="15" stroke-linecap="round" stroke-dasharray="200 1000" stroke-dashoffset="0" cx="100" cy="100" r="70"><animateTransform type="rotate" attributeName="transform" calcMode="spline" dur="2" values="360;0" keyTimes="0;1" keySplines="0 0 1 1" repeatCount="indefinite"></animateTransform></circle><circle transform-origin="center" fill="none" opacity=".2" stroke="#FCBA08" stroke-width="15" stroke-linecap="round" cx="100" cy="100" r="70"></circle></svg>
+              </div>
+            }
+            {
+              !isLoading && 
+              <div id="resultado" className={`${invisible} lg:my-0 my-12`}>
+                <h3 className='font-bold mb-2 text-xl'>Resultado</h3>
+                <p>A distância entre a origem e o destino é: {distanceText}</p>
+              </div>
+            }
+
 
             <div className="hidden lg:block text-black rounded-xl p-6 -mb-4 absolute bottom-16 text-left z-20 ">
               <p><span className='font-bold'>CNPJ: </span>22.577.009/0001-00 </p>
