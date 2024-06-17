@@ -20,6 +20,7 @@ export const Main: React.FC = () => {
     
     try {
       const response: AxiosResponse = await axios.post('/parceiros/backend/calcular_distancia.php', formData);
+      setDistanceText('')
       if(response.data.distance){
         handleResponseSuccess(response.data.distance)
       }
