@@ -18,10 +18,10 @@ export const Main: React.FC = () => {
     
     try {
       const response: AxiosResponse = await axios.post('/parceiros/backend/calcular_distancia.php', formData);
-      
-      if(response.data){
-        handleResponseSuccess(response.data)
+      if(response.data.distancia){
+        handleResponseSuccess(response.data.distancia)
       }
+
     } catch (error) {
       console.error('Erro ao enviar os dados:', error);
     }
