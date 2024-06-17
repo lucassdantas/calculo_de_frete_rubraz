@@ -33,7 +33,7 @@ export const Main: React.FC = () => {
   };
 
   return (
-    <main className="w-full h-full flex justify-center z-10 px-4">
+    <main className="w-full h-full flex justify-center z-10 px-4 mt-[7vw]">
       <div className={"max-w-[1280px] w-full flex flex-col justify-end "}>
 
         <div className="flex lg:flex-row flex-col w-full items-center">
