@@ -5,7 +5,7 @@ import { FaWhatsapp } from "react-icons/fa";
 
 export const Header = () => {
   return (
-    <header className='w-full flex justify-center z-10 '>
+    <header className='w-full flex justify-center z-10 px-4 '>
       <div className="max-w-[1280px] w-full ">
   
         <div className="flex w-full py-5">
@@ -14,7 +14,7 @@ export const Header = () => {
           </div>
 
           <div className="flex flex-col w-2/3 text-gray-700 bg-yellow-rubraz rounded-full font-bold">
-            <div className="bg-yellow-rubraz rounded-full w-full h-[72px] absolute top-5 -right-[50%] -z-10"></div>
+            <div className="bg-yellow-rubraz rounded-full w-full h-[73px] absolute top-5 -right-[50%] -z-10"></div>
             
             <div className="flex lg:px-4 px-6 gap-4 text-lg flex-wrap lg:flex-nowrap h-full">
               <div className="flex flex-col lg:w-1/3 items-center justify-center ">

@@ -5,7 +5,7 @@ import './style.css';
 
 export const Main: React.FC = () => {
   const [distanceText, setDistanceText] = useState(0)
-  const [invisible, setInvisible] = useState('invisible')
+  const [invisible, setInvisible] = useState('visible')
   const handleResponseSuccess = (responseData:any) => {
     setInvisible('')
     setDistanceText(responseData)
@@ -47,7 +47,7 @@ export const Main: React.FC = () => {
               <input className='calc-button bg-yellow-rubraz p-4 rounded-full text-center font-bold cursor-pointer hover:bg-light-yellow-rubraz text-lg tracking-wide' type="submit" value="Calcular Distância" />
             </form>
 
-            <div id="resultado" className={`${invisible}`}>
+            <div id="resultado" className={`${invisible} lg:my-0 my-12`}>
               <h3 className='font-bold mb-2 text-xl'>Resultado</h3>
               <p>A distância entre a origem e o destino é: {distanceText} km</p>
             </div>
@@ -63,8 +63,8 @@ export const Main: React.FC = () => {
           </div>
 
           <div className="flex flex-col px-12 items-end ">
-            <div className='flex border-yellow-rubraz lg:border-[24px] border-[12px] rounded-t-full mx-12 lg:w-[350px] w-[200px] justify-center items-end -mb-10 engineerBackground '>
-              <img src={engineerImg} alt='Imagem do engenheiro' className='lg:w-100 w-52  max-w-[390px] -scale-x-100' />
+            <div className='flex border-yellow-rubraz lg:border-[24px] border-[12px] rounded-t-full mx-12 lg:w-[450px] w-[200px] justify-center items-end lg:-mb-10 -mb-16 engineerBackground '>
+              <img src={engineerImg} alt='Imagem do engenheiro' className='lg:w-full w-56  max-w-[390px] -scale-x-100 z-0' />
             </div>
           </div>
 
