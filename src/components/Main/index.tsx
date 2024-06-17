@@ -18,8 +18,8 @@ export const Main: React.FC = () => {
     
     try {
       const response: AxiosResponse = await axios.post('/parceiros/backend/calcular_distancia.php', formData);
-      if(response.data.distancia){
-        handleResponseSuccess(response.data.distancia)
+      if(response.data.distance){
+        handleResponseSuccess(response.data.distance)
       }
 
     } catch (error) {
@@ -49,7 +49,7 @@ export const Main: React.FC = () => {
 
             <div id="resultado" className={`${invisible} lg:my-0 my-12`}>
               <h3 className='font-bold mb-2 text-xl'>Resultado</h3>
-              <p>A distância entre a origem e o destino é: {distanceText} km</p>
+              <p>A distância entre a origem e o destino é: {distanceText}</p>
             </div>
 
             <div className="hidden lg:block text-black rounded-xl p-6 -mb-4 absolute bottom-16 text-left z-20 ">
