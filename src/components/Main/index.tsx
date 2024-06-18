@@ -6,7 +6,7 @@ import './style.css';
 
 export const Main: React.FC = () => {
   const [distanceText, setDistanceText] = useState<string>('')
-  const [invisible, setInvisible] = useState<string>('invisible hidden')
+  const [invisible, setInvisible] = useState<string>('hidden invisible ')
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const handleResponseSuccess = (responseData:string) => {
@@ -45,7 +45,7 @@ export const Main: React.FC = () => {
               <span className='text-yellow-rubraz text-5xl font-normal'>de distância</span>
             </h1>
 
-            <form id="distanceForm" onSubmit={handleSubmit} className='lg:text-left text-center'> 
+            <form id="distanceForm" onSubmit={handleSubmit} className='lg:text-left text-center transition'> 
               <fieldset className="flex flex-col mb-4 justify-center items-center lg:items-start ">
                 <label htmlFor='destino' className='font-bold text-white text-2xl mb-4'>Destino</label>
                 <input type="text" id="destino" name="destino" placeholder="Endereço de destino " className='rounded-full p-4 text-black outline-none max-w-[512px] w-full' required />
@@ -55,7 +55,7 @@ export const Main: React.FC = () => {
 
             {
               isLoading && 
-              <div className='w-full text-center flex justify-center my-12 lg:block lg:my-0'>
+              <div className='w-full text-center flex justify-center lg:justify-start items-center  lg:pb-16 '>
                 <div className="w-[70px]">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><radialGradient id="a8" cx=".66" fx=".66" cy=".3125" fy=".3125" gradientTransform="scale(1.5)"><stop offset="0" stop-color="#FCBA08"></stop><stop offset=".3" stop-color="#FCBA08" stop-opacity=".9"></stop><stop offset=".6" stop-color="#FCBA08" stop-opacity=".6"></stop><stop offset=".8" stop-color="#FCBA08" stop-opacity=".3"></stop><stop offset="1" stop-color="#FCBA08" stop-opacity="0"></stop></radialGradient><circle transform-origin="center" fill="none" stroke="url(#a8)" stroke-width="15" stroke-linecap="round" stroke-dasharray="200 1000" stroke-dashoffset="0" cx="100" cy="100" r="70"><animateTransform type="rotate" attributeName="transform" calcMode="spline" dur="2" values="360;0" keyTimes="0;1" keySplines="0 0 1 1" repeatCount="indefinite"></animateTransform></circle><circle transform-origin="center" fill="none" opacity=".2" stroke="#FCBA08" stroke-width="15" stroke-linecap="round" cx="100" cy="100" r="70"></circle></svg>
                 </div>
@@ -63,7 +63,7 @@ export const Main: React.FC = () => {
             }
             {
               !isLoading && 
-              <div id="resultado" className={`${invisible} my-12 lg:my-0 `}>
+              <div id="resultado" className={`${invisible} transition-all lg:pb-16 `}>
                 <h3 className='font-bold mb-2 text-xl'>Resultado</h3>
                 <p>A distância entre a origem e o destino é: {distanceText}</p>
               </div>

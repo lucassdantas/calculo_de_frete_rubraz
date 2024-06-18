@@ -17,7 +17,7 @@ export const Header = () => {
             <img src={whiteLogoRubraz} alt='Logo branca rubraz' className={'w-[128px] '}/>
           </div>
 
-          <div className="flex flex-col w-2/3 text-gray-700 bg-yellow-rubraz rounded-full font-bold items-start max-w-[740px] ">
+          <div className="flex flex-col w-2/3 text-black bg-yellow-rubraz rounded-full font-bold items-start max-w-[740px] ">
             <div className="hidden lg:block bg-yellow-rubraz rounded-full w-full h-[73px] absolute top-5 -right-[50%] -z-10"></div>
             
             <div className="flex lg:px-4 px-6 gap-4 text-lg flex-nowrap lg:flex-nowrap h-full w-full ">
