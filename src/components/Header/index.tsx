@@ -36,7 +36,7 @@ export const Header = () => {
                     )}
 
                     {isOpen && (
-                      <div className="absolute top-24 right-auto right-0.5">
+                      <div className="absolute top-24 md:right-auto right-0.5">
                         <div className="bg-white shadow-md rounded-lg py-4 px-6 mt-2 relative z-20">
                           <div className="absolute top-[-10px] left-[50%] transform -translate-x-1/2 w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-b-[10px] border-b-white"></div>
                           <ul className="flex flex-col gap-4">
