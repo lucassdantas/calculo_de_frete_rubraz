@@ -38,9 +38,9 @@ export const Main: React.FC = () => {
     <main className="w-full h-full flex justify-center z-10 px-4  mt-[2%] min-[1700px]:mt-[7%]">
       <div className={"max-w-[1280px] w-full flex flex-col justify-end "}>
 
-        <div className="flex lg:flex-row flex-col w-full items-center">
+        <div className="flex lg:flex-row flex-col w-full ">
 
-          <div className="flex flex-col lg:w-1/2 w-full lg:text-left text-center lg:mt-0 mt-12 text-white gap-4">
+          <div className="flex flex-col lg:w-1/2 w-full lg:text-left text-center mt-12 text-white gap-4">
             <h1 className='font-bold text-5xl'> Calculadora <br />
               <span className='text-yellow-rubraz text-5xl font-normal'>de distância</span>
             </h1>
@@ -63,8 +63,8 @@ export const Main: React.FC = () => {
             }
             {
               !isLoading && 
-              <div id="resultado" className={`${invisible} transition-all lg:pb-16 `}>
-                <h3 className='font-bold mb-2 text-xl'>Resultado</h3>
+              <div id="resultado" className={`${invisible} lg:pb-16 `}>
+                <h3 className={`font-bold mb-2 text-xl`}>Resultado</h3>
                 <p>A distância entre a origem e o destino é: {distanceText}</p>
               </div>
             }
