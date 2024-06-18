@@ -6,7 +6,7 @@ import './style.css';
 
 export const Main: React.FC = () => {
   const [distanceText, setDistanceText] = useState<string>('')
-  const [invisible, setInvisible] = useState<string>('invisible')
+  const [invisible, setInvisible] = useState<string>('invisible hidden')
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const handleResponseSuccess = (responseData:string) => {
@@ -41,8 +41,7 @@ export const Main: React.FC = () => {
         <div className="flex lg:flex-row flex-col w-full items-center">
 
           <div className="flex flex-col lg:w-1/2 w-full lg:text-left text-center lg:mt-0 mt-12 text-white gap-4">
-            <h1 className='font-bold text-5xl'>
-              Calculadora <br />
+            <h1 className='font-bold text-5xl'> Calculadora <br />
               <span className='text-yellow-rubraz text-5xl font-normal'>de distância</span>
             </h1>
 
@@ -64,7 +63,7 @@ export const Main: React.FC = () => {
             }
             {
               !isLoading && 
-              <div id="resultado" className={`${invisible} lg:my-0 my-12`}>
+              <div id="resultado" className={`${invisible} my-12 lg:my-0 `}>
                 <h3 className='font-bold mb-2 text-xl'>Resultado</h3>
                 <p>A distância entre a origem e o destino é: {distanceText}</p>
               </div>
@@ -81,7 +80,7 @@ export const Main: React.FC = () => {
 
           </div>
 
-          <div className="flex flex-col px-12 lg:items-end items-center ">
+          <div className="flex flex-col px-12 lg:items-end items-center mt-7 -ml-16 lg:-ml-0 lg:mt-4">
               <img src={compelteEngineerImg} alt='Imagem do engenheiro' className='lg:w-[88%] w-[100%] max-w-[250px] lg:max-w-[390px] z-0' />
           </div>
 
