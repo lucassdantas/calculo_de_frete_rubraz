@@ -35,7 +35,7 @@ export const Main: React.FC = () => {
   };
 
   return (
-    <main className="w-full h-full flex justify-center z-10 px-4 mt-[2%] min-[1700px]:mt-[7%]">
+    <main className="w-full h-full flex justify-center z-10 px-4  mt-[2%] min-[1700px]:mt-[7%]">
       <div className={"max-w-[1280px] w-full flex flex-col justify-end "}>
 
         <div className="flex lg:flex-row flex-col w-full items-center">
@@ -81,8 +81,8 @@ export const Main: React.FC = () => {
 
           </div>
 
-          <div className="flex flex-col px-12 items-end ">
-              <img src={compelteEngineerImg} alt='Imagem do engenheiro' className='lg:w-full w-56  max-w-[390px] z-0' />
+          <div className="flex flex-col px-12 lg:items-end items-center ">
+              <img src={compelteEngineerImg} alt='Imagem do engenheiro' className='lg:w-[88%] w-[100%] max-w-[250px] lg:max-w-[390px] z-0' />
           </div>
 
         </div>

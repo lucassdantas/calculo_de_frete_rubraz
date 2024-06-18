@@ -3,7 +3,7 @@ import React from 'react'
 export const Footer = () => {
   return (
     <>
-      < div className="lg:hidden lg:invisible flex justify-center gap-6 text-base bg-yellow-rubraz text-black  p-6  text-left mt-12 w-full z-20 relative ">
+      < div className="lg:hidden lg:invisible flex justify-center gap-6 text-base bg-yellow-rubraz text-black  p-6  text-left w-full z-20 relative ">
           <p><span className='font-bold'>CNPJ: </span>22.577.009/0001-00 </p>
           <p><span className='font-bold'>CREA-RJ: </span>2023200826 </p>
       </div>
