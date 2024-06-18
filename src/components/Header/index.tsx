@@ -13,26 +13,26 @@ export const Header = () => {
       <div className="max-w-[1080px] w-full ">
   
         <div className="flex w-full py-5 ">
-          <div className="flex flex-col items-start w-1/3 max-w-[320px]">
-            <img src={whiteLogoRubraz} alt='Logo branca rubraz' className={'w-[128px] '}/>
+          <div className="flex flex-col items-start justify-center w-1/3 max-w-[320px] max-iphone:w-2/10">
+            <img src={whiteLogoRubraz} alt='Logo branca rubraz' className={'w-[128px] max-iphone:w-full'}/>
           </div>
 
-          <div className="flex flex-col w-2/3 text-black bg-yellow-rubraz rounded-full font-bold items-start max-w-[740px] ">
+          <div className="flex flex-col w-2/3 text-black bg-yellow-rubraz rounded-full font-bold items-start max-w-[740px] max-iphone:w-8/10 max-iphone:py-4 ">
             <div className="hidden lg:block bg-yellow-rubraz rounded-full w-full h-[73px] absolute top-5 -right-[50%] -z-10"></div>
             
-            <div className="flex lg:px-4 px-6 gap-4 text-lg flex-nowrap lg:flex-nowrap h-full w-full ">
+            <div className="flex lg:px-4 px-6 gap-4 text-lg flex-nowrap lg:flex-nowrap h-full w-full max-iphone:px-3 ">
               <div className="flex lg:flex-col gap-4 lg:gap-0 lg:w-1/3 w-full md:w-[70%] items-center justify-between lg:justify-center ">
                 <a className='flex gap-2 items-center justify-center ' href='https://api.whatsapp.com/send/?phone=5521979808794&text=Ol%C3%A1%2C+venho+atrav%C3%A9s+do+site+e+gostaria+de+or%C3%A7amento.+Poderia+me+ajudar%3F&type=phone_number&app_absent=0' target="_blank">
                   <div className="rounded-full lg:w-[38px] flex justify-center items-center ">
-                    <img src={wppIcon} alt='Icone de whatsApp' className='text-white md:w-[40px] w-[30px] '/>
+                    <img src={wppIcon} alt='Icone de whatsApp' className='text-white md:w-[40px] w-[30px] max-iphone:w-[20px] '/>
                   </div>
                   <span className='md:text-base text-[14px]'>21 97980-8794</span>
                 </a>
-                <div className='lg:hidden flex justify-center'>
+                <div className='lg:hidden flex justify-center text-center'>
                   {isOpen ? (
                       <FaTimes className='md:text-2xl lg:hidden' onClick={() => setIsOpen(!isOpen)} />
                     ) : (
-                      <img src={hamburguerIcon} alt='icone menu hamburguer' className='md:w-[42px] w-[32px] lg:hidden' onClick={() => setIsOpen(!isOpen)}/>
+                      <img src={hamburguerIcon} alt='icone menu hamburguer' className='md:w-[42px] w-[32px] max-iphone:w-[28px] lg:hidden' onClick={() => setIsOpen(!isOpen)}/>
                     )}
 
                     {isOpen && (

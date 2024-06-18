@@ -12,6 +12,9 @@ export default {
         "blue-rubraz":"#175DBD",
         "blue-body-rubraz":"#0051BA",
       },
+      screens:{
+        "iphone":"400px",
+      }
     },
     
   },
