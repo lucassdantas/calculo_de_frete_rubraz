@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios, { AxiosResponse } from 'axios'; 
 import engineerImg from '@/assets/engenheiro-rubraz-calculadora-distancia.png';
+import compelteEngineerImg from '@/assets/engenheiro-rubraz-calculadora-distancia-com-fundo.png';
 import './style.css';
 
 export const Main: React.FC = () => {
@@ -34,7 +35,7 @@ export const Main: React.FC = () => {
   };
 
   return (
-    <main className="w-full h-full flex justify-center z-10 px-4 min-[1700px]:mt-[7%]">
+    <main className="w-full h-full flex justify-center z-10 px-4 mt-[2%] min-[1700px]:mt-[7%]">
       <div className={"max-w-[1280px] w-full flex flex-col justify-end "}>
 
         <div className="flex lg:flex-row flex-col w-full items-center">
@@ -42,15 +43,15 @@ export const Main: React.FC = () => {
           <div className="flex flex-col lg:w-1/2 w-full lg:text-left text-center lg:mt-0 mt-12 text-white gap-4">
             <h1 className='font-bold text-5xl'>
               Calculadora <br />
-              <span className='text-yellow-rubraz text-5xl font-normal'>de Distância</span>
+              <span className='text-yellow-rubraz text-5xl font-normal'>de distância</span>
             </h1>
 
             <form id="distanceForm" onSubmit={handleSubmit} className='lg:text-left text-center'> 
               <fieldset className="flex flex-col mb-4 justify-center items-center lg:items-start ">
                 <label htmlFor='destino' className='font-bold text-white text-2xl mb-4'>Destino</label>
-                <input type="text" id="destino" name="destino" placeholder="Endereço de Destino" className='rounded-full p-4 text-black outline-none max-w-[512px] w-full' required />
+                <input type="text" id="destino" name="destino" placeholder="Endereço de destino " className='rounded-full p-4 text-black outline-none max-w-[512px] w-full' required />
               </fieldset>
-              <input className='calc-button bg-yellow-rubraz p-4 rounded-full text-center font-bold cursor-pointer hover:bg-light-yellow-rubraz text-lg tracking-wide' type="submit" value="Calcular Distância" />
+              <input className='calc-button bg-yellow-rubraz p-4 rounded-full text-center font-bold cursor-pointer hover:bg-light-yellow-rubraz text-lg tracking-wide' type="submit" value="Calcular distância" />
             </form>
 
             {
@@ -81,9 +82,7 @@ export const Main: React.FC = () => {
           </div>
 
           <div className="flex flex-col px-12 items-end ">
-            <div className='flex border-yellow-rubraz lg:border-[24px] border-[12px] rounded-t-full mx-12 lg:w-[450px] w-[200px] justify-center items-end lg:-mb-10 -mb-16 engineerBackground '>
-              <img src={engineerImg} alt='Imagem do engenheiro' className='lg:w-full w-56  max-w-[390px] -scale-x-100 z-0' />
-            </div>
+              <img src={compelteEngineerImg} alt='Imagem do engenheiro' className='lg:w-full w-56  max-w-[390px] z-0' />
           </div>
 
         </div>
