@@ -10,7 +10,7 @@ export const Header = () => {
 
   return (
     <header className='w-full flex justify-center z-10 px-4 '>
-      <div className="max-w-[1280px] w-full ">
+      <div className="max-w-[1080px] w-full ">
   
         <div className="flex w-full py-5 ">
           <div className="flex flex-col items-start w-1/3 max-w-[320px]">

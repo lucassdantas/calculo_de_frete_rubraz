@@ -36,9 +36,9 @@ export const Main: React.FC = () => {
 
   return (
     <main className="w-full h-full flex justify-center z-10 px-4  mt-[2%] min-[1700px]:mt-[7%]">
-      <div className={"max-w-[1280px] w-full flex flex-col justify-end "}>
+      <div className={"max-w-[1080px] w-full flex flex-col justify-end "}>
 
-        <div className="flex lg:flex-row flex-col w-full ">
+        <div className="flex lg:flex-row flex-col w-full justify-between ">
 
           <div className="flex flex-col lg:w-1/2 w-full lg:text-left text-center mt-12 text-white gap-4">
             <h1 className='font-bold text-5xl'> Calculadora <br />
