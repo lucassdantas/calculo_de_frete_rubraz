@@ -10,8 +10,16 @@ export const Main: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const handleResponseSuccess = (responseData:string) => {
-    setInvisible('')
-    setDistanceText(responseData)
+    setDistanceText('')
+    if(responseData){
+      responseData = (
+        String (
+          ( Number (responseData) / 1000 * 2).toFixed(2)
+        )
+      ).replace('.', ',');
+      setInvisible('')
+      setDistanceText(responseData)
+    }
   }
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -21,11 +29,8 @@ export const Main: React.FC = () => {
     
     try {
       const response: AxiosResponse = await axios.post('/parceiros/backend/calcular_distancia.php', formData);
-      setDistanceText('')
-      if(response.data.distance){
-        handleResponseSuccess(response.data.distance)
-      }
-
+      handleResponseSuccess(response.data.distanceValue)
+      console.log(response.data)
     } catch (error) {
       console.error('Erro ao enviar os dados:', error);
     }
@@ -65,7 +70,7 @@ export const Main: React.FC = () => {
               !isLoading && 
               <div id="resultado" className={`${invisible} lg:pb-16 `}>
                 <h3 className={`font-bold mb-2 text-xl`}>Resultado</h3>
-                <p>A distância entre a origem e o destino é: {distanceText}</p>
+                <p>A distância entre a origem e o destino é: {distanceText} km</p>
               </div>
             }
 

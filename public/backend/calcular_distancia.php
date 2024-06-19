@@ -25,8 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $data = json_decode($json, true);
 
         if ($data['status'] == "OK" && $data['rows'][0]['elements'][0]['status'] == "OK") {
-            $distancia = $data['rows'][0]['elements'][0]['distance']['text'];
-            echo json_encode(['status' => 'OK', 'distance' => $distancia]);
+            $distancia = $data['rows'][0]['elements'][0]['distance'];
+            echo json_encode(['status' => 'OK', 'distance' => $distancia['text'], 'distanceValue' => $distancia['value']]);
         } else {
             $errorMessage = $data['error_message'] ?? 'Erro desconhecido';
             echo json_encode(['status' => 'ERROR', 'message' => 'Erro na resposta da API: ' . $errorMessage]);
