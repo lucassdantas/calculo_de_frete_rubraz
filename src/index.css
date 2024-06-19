@@ -3,9 +3,11 @@
 @tailwind utilities;
 
 html, body {
-    @apply h-full m-0;
-  }
+  @apply h-full m-0;
+}
   
-  .mainComponent {
-    @apply h-full;
-  }
+.mainComponent {
+  @apply h-full;
+}
+
+
