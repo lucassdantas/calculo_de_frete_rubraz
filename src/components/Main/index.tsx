@@ -70,7 +70,7 @@ export const Main: React.FC = () => {
               !isLoading && 
               <div id="resultado" className={`${invisible} lg:pb-16 `}>
                 <h3 className={`font-bold mb-2 text-xl`}>Resultado</h3>
-                <p>A distância de ida e volta do caminhão ao o destino é: {distanceText} km</p>
+                <p>A distância de ida e volta do caminhão ao o destino é: <b>{distanceText}</b> km</p>
               </div>
             }
 
