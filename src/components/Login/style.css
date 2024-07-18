@@ -1,0 +1,62 @@
+#root{
+    margin: 0;
+    padding: 0;
+   
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    
+}
+
+.loginContainer form{
+    display: flex;
+    justify-content:space-evenly ;
+    align-items: center;
+    flex-direction: column;
+    width: 500px;
+    height: 500px;
+    border-radius: 4%;
+    border: 1px solid;
+   
+
+}
+
+.passwordInput{
+    height: 50px; 
+    width: 300px;
+    border: 1px solid rgb(134, 134, 134);
+    border-radius: 8px;
+    padding: 5px;
+    
+    
+}
+
+.userInput{
+    height: 50px;
+    width: 300px;
+    border: 1px solid rgb(134, 134, 134);
+    border-radius: 8px;
+    padding: 5px;
+}
+
+.buttonLogin{
+    background-color: #175DBD ;
+    height: 50px;
+    width: 150px;
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    
+}
+
+.buttonLogin:hover{
+    background-color: #114288;
+}
+
+.titleLogin h1{
+    font-size: 45px;
+}
