@@ -1,13 +1,20 @@
 <?php
 session_start();
 header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: http://localhost:5173'); 
-header('Access-Control-Allow-Headers: Content-Type');
+include_once './config/cors.php'; 
 
-$response = array('loggedIn' => false);
-
-if (isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['userId'])) {
+    http_response_code(401);
+    echo json_encode(['error' => 'Usuário não autenticado']);
+    exit;
+}
+if (isset($_SESSION['userId'])) {
     $response['loggedIn'] = true;
+    $_SESSION['userId']     = $user['userId'];
+    $_SESSION['userEmail']  = $user['userEmail'];
+    $_SESSION['userName']   = $user['userName'];
+    $_SESSION['userPhone']  = $user['userPhone'];
+    $response['success']    = true;
 }
 
 echo json_encode($response);

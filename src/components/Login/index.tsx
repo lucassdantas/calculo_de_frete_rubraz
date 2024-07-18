@@ -19,7 +19,7 @@ export const Login = ({setAuth, Component}:any) => {
         e.preventDefault();
         
         try {
-            const response = await axios.post('http://localhost:80/rubraz/calculo_de_frete_rubraz/public/backend/login.php', { username, password }, { withCredentials: true });
+            const response = await axios.post('backend/login.php', { username, password }, { withCredentials: true });
 
             console.log(response)
 
