@@ -1,39 +1,37 @@
 <?php
 session_start();
 header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: http://localhost:5173');
-header('Access-Control-Allow-Credentials: true');
-header('Access-Control-Allow-Headers: Content-Type');
-header('Access-Control-Allow-Methods: POST, OPTIONS');
-
+include_once './config/cors.php'; 
+include_once './config/db.php';
 
 $data = json_decode(file_get_contents('php://input'), true);
 
 $username = $data['username'];
 $password = $data['password'];
 
-$dsn = 'mysql:host=localhost;dbname=rubraz';
-$db_user = 'root';
-$db_password = '';
-
 try {
-    $pdo = new PDO($dsn, $db_user, $db_password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $database = new Database();
+    $pdo = $database->getConnection();
 
-    $sql = 'SELECT * FROM users WHERE login = :login AND password = :password';
+    $sql  = 'SELECT * FROM rubraz_users WHERE userEmail = :login AND userPassword = :password';
     $stmt = $pdo->prepare($sql);
     $stmt->execute(['login' => $username, 'password' => $password]);
 
-    $response = false;
+    $response = array('success' => false);
 
     if ($stmt->rowCount() > 0) {
-        $_SESSION['user_id'] = $username;
-        $response = true;
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $_SESSION['userId']     = $user['userId'];
+        $_SESSION['userName']   = $user['userName'];
+        $_SESSION['userEmail']  = $user['userEmail'];
+        $_SESSION['userPhone']  = $user['userPhone'];
+        $response['success']    = true;
     }
 
     echo json_encode($response);
 
 } catch (PDOException $e) {
-    echo 'Connection failed: ' . $e->getMessage();
+    echo json_encode(['success' => false, 'message' => 'Connection failed: ' . $e->getMessage()]);
 }
 ?>
