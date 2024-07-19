@@ -1,6 +1,7 @@
 import { UserContext } from '@/context/userContext'
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { MdOutlineArrowDropDownCircle } from "react-icons/md";
+import UserPopup from '../UserPopup';
 
 export const MyAccountIcon = () => {
   const user = useContext(UserContext)
@@ -29,11 +30,34 @@ export const MyAccountIcon = () => {
   )
 }
 
-const AccountMenu = ({handleAccountMenuClose}:any) => {
-  const user = useContext(UserContext)
+const AccountMenu = ({ handleAccountMenuClose }: { handleAccountMenuClose: () => void }) => {
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  const handlePopupOpen = () => setIsPopupOpen(true);
+  const handlePopupClose = () => setIsPopupOpen(false);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        handleAccountMenuClose();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [handleAccountMenuClose]);
+
   return (
-    <div className='bg-white p-4 absolute -mt-4' onMouseLeave={() => handleAccountMenuClose()}>
-      <span className='font-normal cursor-pointer'>Configurações</span>
+    <div
+      className="bg-white p-4 absolute -mt-4"
+      ref={menuRef}
+    >
+      <span className="font-normal cursor-pointer" onClick={handlePopupOpen}>Configurações</span>
+      {isPopupOpen && <UserPopup onClose={handlePopupClose} />}
     </div>
-  )
-}
+  );
+};
