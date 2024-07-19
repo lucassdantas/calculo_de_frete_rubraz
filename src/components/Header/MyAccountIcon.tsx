@@ -15,7 +15,7 @@ export const MyAccountIcon = () => {
     <div className='h-full'>
       <div className='flex items-center gap-2 h-full'>
         <img src={'http://localhost:5173/public/userImages/'+user.userId+'.jpg'} alt='Imagem do usuário' className='rounded-full w-[50px] cursor-pointer'/> 
-          <MdOutlineArrowDropDownCircle className='text-2xl text-white cursor-pointer' 
+          <MdOutlineArrowDropDownCircle className='lg:text-2xl md:text-5xl text-7xl text-white cursor-pointer' 
           onMouseOver={() => setIsAccountMenuOpen(true)} 
           onClick={() => handleAccountMenuOpen()}
           

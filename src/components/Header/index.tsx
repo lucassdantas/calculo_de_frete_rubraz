@@ -19,8 +19,8 @@ export const Header = () => {
                 <ContactInfo />
                 <DesktopLinks />
               </div>
-                <MyAccountIcon/>
                 <MobileMenu />
+                <MyAccountIcon/>
             </div>
           </div>
           
