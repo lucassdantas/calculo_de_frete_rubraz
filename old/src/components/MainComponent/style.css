@@ -1,0 +1,6 @@
+.mainComponent .bgImage{
+    background-image:url('/imagens/predio-residencial-em-construcao-rubraz-lajes.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
