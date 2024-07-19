@@ -13,7 +13,7 @@ export const MobileMenu = () => {
         <img
           src={hamburguerIcon}
           alt="icone menu hamburguer"
-          className="md:w-[42px] w-[32px] max-iphone:w-[28px] lg:hidden"
+          className="md:w-[42px] w-[32px] max-iphone:w-[28px] lg:hidden object-contain"
           onClick={() => setIsOpen(!isOpen)}
         />
       )}
