@@ -14,6 +14,7 @@ function App() {
     const checkSession = async () => {
       try {
         const response = await axios.get('http:localhost/rubraz/calculo_de_frete_rubraz/public/backend/session.php', { withCredentials: true });
+        //setCurrentUser(response.data.user)
         //setAuth(response.data.loggedIn);
       } catch (error) {
         console.error('Houve um erro ao verificar a sessão!', error);

@@ -13,10 +13,10 @@ export const MyAccountIcon = () => {
     setIsAccountMenuOpen(false)
   }
   return (
-    <div className='h-full'>
+    <div className='h-full' onMouseLeave={() => handleAccountMenuClose()}>
       <div className='flex items-center gap-2 h-full'>
-        <img src={'http://localhost:5173/public/userImages/'+user.userId+'.jpg'} alt='Imagem do usuário' className='rounded-full w-[50px] cursor-pointer'/> 
-          <MdOutlineArrowDropDownCircle className='lg:text-2xl md:text-5xl text-7xl text-white cursor-pointer' 
+        <img src={'http://localhost:5173/public/userImages/'+user.userId+'.jpg'} alt='Imagem do usuário' className='rounded-full w-[38px] cursor-pointer'/> 
+          <MdOutlineArrowDropDownCircle className='lg:text-xl md:text-5xl text-7xl text-white cursor-pointer' 
           onMouseOver={() => setIsAccountMenuOpen(true)} 
           onClick={() => handleAccountMenuOpen()}
           

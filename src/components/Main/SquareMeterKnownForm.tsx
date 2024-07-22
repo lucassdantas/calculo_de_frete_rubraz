@@ -1,12 +1,7 @@
 import React from 'react';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { motion } from 'framer-motion';
 
-interface ResultSectionProps {
-  onBack: () => void;
-}
-
-const ResultSection: React.FC<ResultSectionProps> = ({ onBack }) => {
+const SquareMeterKnownForm = () => {
   return (
     <motion.div
       initial={{ opacity: 0, y: -20 }}
@@ -14,13 +9,9 @@ const ResultSection: React.FC<ResultSectionProps> = ({ onBack }) => {
       transition={{ duration: 0.5 }}
       className="w-full"
     >
-      <button type="button" onClick={onBack} className='flex items-center mb-4 bg-yellow-rubraz p-2 rounded-full font-bold cursor-pointer hover:bg-blue-rubraz text-lg tracking-wide'>
-        <ArrowBackIcon className="mr-2" />
-        Voltar
-      </button>
       <h1 className='font-bold text-5xl'>
-        Novo Título <br />
-        <span className='text-yellow-rubraz text-5xl font-normal'>Aparece Aqui</span>
+        Calculadora <br />
+        <span className='text-yellow-rubraz text-5xl font-normal'>de distância</span>
       </h1>
       <form className='lg:text-left text-center transition mt-4'>
         <fieldset className="flex flex-col mb-4 justify-center items-center lg:items-start">
@@ -55,4 +46,4 @@ const ResultSection: React.FC<ResultSectionProps> = ({ onBack }) => {
   );
 };
 
-export default ResultSection;
+export default SquareMeterKnownForm;

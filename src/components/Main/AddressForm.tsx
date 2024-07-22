@@ -5,7 +5,7 @@ interface FormSectionProps {
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
 }
 
-const FormSection: React.FC<FormSectionProps> = ({ onSubmit }) => {
+const AddressForm: React.FC<FormSectionProps> = ({ onSubmit }) => {
   return (
     <motion.div
       initial={{ opacity: 1 }}
@@ -23,7 +23,7 @@ const FormSection: React.FC<FormSectionProps> = ({ onSubmit }) => {
             type="text"
             id="destino"
             name="destino"
-            placeholder="Endereço de destino"
+            placeholder="Endereço completo (Rua, Bairro, Cidade, Estado)"
             className='rounded-full p-4 text-black outline-none max-w-[512px] w-full'
             required
           />
@@ -34,4 +34,4 @@ const FormSection: React.FC<FormSectionProps> = ({ onSubmit }) => {
   );
 };
 
-export default FormSection;
+export default AddressForm;
