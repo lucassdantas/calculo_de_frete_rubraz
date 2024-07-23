@@ -46,7 +46,7 @@ export const Main: React.FC = () => {
   }
 
   return (
-    <main className="w-full min-h-[100vh] flex justify-center items-center z-10 px-4 pt-[80px] pb-12">
+    <main className="w-full min-h-[100vh] flex justify-center items-center z-10 px-4  lg:pt-[0px] pb-12">
       <div className="max-w-[1080px] flex flex-col w-full items-center justify-center text-white gap-4">
         {formStep > 0 && 
           <div onClick={() => handleFormStep(formStep - 1)} className='flex max-w-[120px] items-center mb-4 bg-yellow-rubraz p-2 rounded-full font-bold cursor-pointer hover:bg-light-yellow-rubraz text-lg tracking-wide'><ArrowBackIcon className="mr-2" />Voltar</div>

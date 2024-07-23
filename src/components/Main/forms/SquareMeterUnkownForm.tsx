@@ -33,10 +33,10 @@ const SquareMeterUnkownForm = ({ handleFormStep }: StepProps) => {
       transition={{ duration: 0.5 }}
       className="w-full"
     >
-      <div className='text-center lg:text-left transition mt-4'>
-        <div className='max-h-56 overflow-y-auto mb-2 px-2'>
+      <div className='text-center lg:text-left transition mt-4 '>
+        <div className='max-h-[352px] overflow-y-auto mb-2 px-2'>
           {vigotas.map((vigota, i) => (
-            <div className='flex flex-col lg:flex-row mb-4 gap-5 items-end' key={i}>
+            <div className='relative flex flex-col lg:flex-row mb-4 gap-5 items-end ' key={i}>
               <div className='flex flex-col w-full lg:w-auto'>
                 <label htmlFor={`vigotaQuantity-${i}`} className='font-bold text-white mb-4'>Quantidade de vigotas</label>
                 <input
@@ -63,40 +63,16 @@ const SquareMeterUnkownForm = ({ handleFormStep }: StepProps) => {
                   className='rounded-full p-4 text-black outline-none w-full'
                 />
               </div>
-              <button
-                className='text-white mb-4 text-2xl lg:mb-0'
-                onClick={() => removeVigota(i)}
-              >
-                x
-              </button>
+              {vigotas.length > 1 && (
+                <button
+                  className='absolute right-0 top-0 lg:relative lg:right-auto lg:top-auto lg:self-center lg:translate-y-[-10%] lg:ml-2 text-white text-2xl lg:mb-0'
+                  onClick={() => removeVigota(i)}
+                >
+                  x
+                </button>
+              )}
             </div>
           ))}
-        </div>
-        <div className='flex flex-col lg:flex-row mb-4 items-end gap-5 px-2'>
-          <div className='flex flex-col w-full lg:w-auto'>
-            <label htmlFor="newVigotaQuantity" className='font-bold text-white mb-4'>Quantidade de vigotas</label>
-            <input
-              required
-              type="number"
-              id="newVigotaQuantity"
-              name="newVigotaQuantity"
-              placeholder="Quantidade das vigotas"
-              className='rounded-full p-4 text-black outline-none w-full'
-              onChange={(e) => handleVigotaChange(vigotas.length - 1, 'vigotaQuantity', Number(e.target.value))}
-            />
-          </div>
-          <div className='flex flex-col w-full lg:w-auto'>
-            <label htmlFor="newVigotaSize" className='font-bold text-white mb-4'>Tamanho da vigota</label>
-            <input
-              required
-              type="number"
-              id="newVigotaSize"
-              name="newVigotaSize"
-              placeholder="Tamanho das vigotas"
-              className='rounded-full p-4 text-black outline-none w-full'
-              onChange={(e) => handleVigotaChange(vigotas.length - 1, 'vigotaSize', Number(e.target.value))}
-            />
-          </div>
         </div>
         <div className='flex flex-col items-center md:flex-row md:justify-between px-2'>
           <div className="w-full md:w-1/2 text-center md:text-left mb-4 md:mb-0">

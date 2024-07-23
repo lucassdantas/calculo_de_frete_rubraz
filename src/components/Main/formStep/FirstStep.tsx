@@ -22,7 +22,7 @@ export const FirstStep = ({ handleFormStep }: StepProps) => {
           Não possuo o tamanho em m³
         </button>
       </div>
-      <div className='flex justify-center items-center text-center w-full max-w-md'>
+      <div className='flex justify-center items-center text-center w-full max-w-lg'>
         {activeTabIndex === 0 && <SquareMeterKnownForm handleFormStep={handleFormStep} />}
         {activeTabIndex === 1 && <SquareMeterUnkownForm handleFormStep={handleFormStep} />}
       </div>
