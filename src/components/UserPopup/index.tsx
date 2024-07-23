@@ -139,7 +139,7 @@ const UserPopup: React.FC<UserPopupProps> = ({ onClose }) => {
                   className="hidden"
                   id="photoInput"
                 />
-                <label htmlFor="photoInput" className="absolute bottom-0 right-0 bg-yellow-rubraz p-2 rounded-full cursor-pointer">
+                <label htmlFor="photoInput" className="absolute bottom-0 right-0 bg-yellow-500 p-2 rounded-full cursor-pointer">
                   <i className="fas fa-pencil-alt text-white"></i>
                 </label>
               </div>
@@ -190,7 +190,7 @@ const UserPopup: React.FC<UserPopupProps> = ({ onClose }) => {
               className="block w-full mt-1 border px-2"
             />
           </label>
-          <button type="submit" className="mt-4 bg-yellow-rubraz text-white p-2 rounded">Salvar</button>
+          <button type="submit" className="mt-4 bg-yellow-500 text-white p-2 rounded">Salvar</button>
         </form>
       </div>
     </div>
