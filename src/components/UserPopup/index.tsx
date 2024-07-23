@@ -64,7 +64,7 @@ const UserPopup = ({ onClose }: { onClose: () => void }) => {
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+    <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
       <div className="bg-white p-6 rounded-lg shadow-lg relative" ref={popupRef}>
         <button
           onClick={onClose}
@@ -73,7 +73,7 @@ const UserPopup = ({ onClose }: { onClose: () => void }) => {
           &times;
         </button>
         <h2 className="text-xl font-bold mb-4">Editar Perfil</h2>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className='gap-4'>
           <label>
             Nome:
             <input
@@ -116,7 +116,7 @@ const UserPopup = ({ onClose }: { onClose: () => void }) => {
               type="password"
               value={userPassword}
               onChange={(e) => setUserPassword(e.target.value)}
-              className="block w-full mt-1"
+              className="block w-full mt-1 border px-2"
             />
           </label>
           <label>

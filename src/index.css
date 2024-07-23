@@ -11,5 +11,7 @@ html, body {
 }
 
 
-
-
+::-webkit-scrollbar             {width: 7px;}
+::-webkit-scrollbar-track       {background: #00275c; }
+::-webkit-scrollbar-thumb       {background: #FFBC01; border-radius:20px;}
+::-webkit-scrollbar-thumb:hover {cursor:pointer; box-shadow: 0 0 5px #fff;}

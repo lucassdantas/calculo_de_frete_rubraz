@@ -1,18 +1,17 @@
+// main.tsx
 import React, { useState } from 'react';
-import FormSection from './FormSection';
-import ResultSection from './ResultSection';
+import AddressForm from './forms/AddressForm';
 import Loader from './Loader';
-import FooterInfo from './FooterInfo';
-import compelteEngineerImg from '@/assets/engenheiro-rubraz-calculadora-distancia-com-fundo.png';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { FirstStep } from '@/components/Main/formStep/FirstStep';
 import './style.css';
 
 export const Main: React.FC = () => {
   const [distanceText, setDistanceText] = useState<string>('')
   const [invisible, setInvisible] = useState<string>('hidden invisible ')
-  const [showSecondForm, setShowSecondForm] = useState<boolean>(false);
-  const [showNewTitle, setShowNewTitle] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false)
-
+  const [formStep, setFormStep] = useState<number>(1)
+  
   const handleResponseSuccess = (responseData: string) => {
     setDistanceText('')
     if (responseData) {
@@ -33,7 +32,6 @@ export const Main: React.FC = () => {
     try {
       setTimeout(() => {
         handleResponseSuccess("1000");
-        setShowSecondForm(true);
         setIsLoading(false);
       }, 2000);
     } catch (error) {
@@ -42,27 +40,21 @@ export const Main: React.FC = () => {
     }
   };
 
-  const handleBack = () => {
-    setShowSecondForm(false);
-  };
+  const handleFormStep = (formStepValue:number) => {
+    if (formStepValue < 0) formStepValue = 0
+    setFormStep(formStepValue)
+  }
 
   return (
-    <main className="w-full h-full flex justify-center z-10 px-4 mt-[2%] min-[1700px]:mt-[7%]">
-      <div className="max-w-[1080px] w-full flex flex-col justify-end">
-        <div className="flex lg:flex-row flex-col w-full justify-between">
-          <div className="flex flex-col lg:w-1/2 w-full lg:text-left text-center mt-12 text-white gap-4">
-            {!showSecondForm ? (
-              <FormSection onSubmit={handleSubmit} />
-            ) : (
-              <ResultSection onBack={handleBack} />
-            )}
-            {isLoading && <Loader />}
-            <FooterInfo />
-          </div>
-          <div className="flex flex-col px-12 lg:items-end items-center mt-7 -ml-16 lg:-ml-0 lg:mt-4">
-            <img src={compelteEngineerImg} alt='Imagem do engenheiro' className='lg:w-[88%] w-[100%] max-w-[250px] lg:max-w-[390px] z-0' />
-          </div>
-        </div>
+    <main className="w-full min-h-[100vh] flex justify-center items-center z-10 px-4  lg:pt-[0px] pb-12">
+      <div className="max-w-[1080px] flex flex-col w-full items-center justify-center text-white gap-4">
+        {formStep > 0 && 
+          <div onClick={() => handleFormStep(formStep - 1)} className='flex max-w-[120px] items-center mb-4 bg-yellow-rubraz p-2 rounded-full font-bold cursor-pointer hover:bg-light-yellow-rubraz text-lg tracking-wide'><ArrowBackIcon className="mr-2" />Voltar</div>
+        }
+        <h1 className='font-bold text-5xl text-center'>Calculadora <span className='text-yellow-rubraz text-5xl font-normal'>de distância</span></h1>
+        {isLoading && <Loader />}
+        {formStep === 0 && <FirstStep handleFormStep={handleFormStep}/>}
+        {formStep === 1 && <AddressForm onSubmit={handleSubmit} />}
       </div>
     </main>
   );

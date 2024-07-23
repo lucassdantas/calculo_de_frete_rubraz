@@ -10,6 +10,6 @@ export const ContactInfo = () => (
       <img src={wppIcon} alt="Icone de WhatsApp" className="text-white md:w-[40px] w-[30px] max-iphone:w-[20px]" />
     </div>
 
-    <span className="md:text-base text-[14px] -mb-1">21 97980-8794</span>
+    <span className="hidden sm:block md:text-base text-[14px] -mb-1">21 97980-8794</span>
   </a>
 );

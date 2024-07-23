@@ -5,17 +5,14 @@ interface FormSectionProps {
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
 }
 
-const FormSection: React.FC<FormSectionProps> = ({ onSubmit }) => {
+const AddressForm: React.FC<FormSectionProps> = ({ onSubmit }) => {
   return (
     <motion.div
       initial={{ opacity: 1 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <h1 className='font-bold text-5xl'>
-        Calculadora <br />
-        <span className='text-yellow-rubraz text-5xl font-normal'>de distância</span>
-      </h1>
+
       <form id="distanceForm" onSubmit={onSubmit} className='lg:text-left text-center transition'>
         <fieldset className="flex flex-col mb-4 justify-center items-center lg:items-start">
           <label htmlFor='destino' className='font-bold text-white text-2xl mb-4'>Destino</label>
@@ -23,7 +20,7 @@ const FormSection: React.FC<FormSectionProps> = ({ onSubmit }) => {
             type="text"
             id="destino"
             name="destino"
-            placeholder="Endereço de destino"
+            placeholder="Endereço completo (Rua, Bairro, Cidade, Estado)"
             className='rounded-full p-4 text-black outline-none max-w-[512px] w-full'
             required
           />
@@ -34,4 +31,4 @@ const FormSection: React.FC<FormSectionProps> = ({ onSubmit }) => {
   );
 };
 
-export default FormSection;
+export default AddressForm;
