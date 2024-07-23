@@ -12,10 +12,7 @@ const AddressForm: React.FC<FormSectionProps> = ({ onSubmit }) => {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <h1 className='font-bold text-5xl'>
-        Calculadora <br />
-        <span className='text-yellow-rubraz text-5xl font-normal'>de distância</span>
-      </h1>
+
       <form id="distanceForm" onSubmit={onSubmit} className='lg:text-left text-center transition'>
         <fieldset className="flex flex-col mb-4 justify-center items-center lg:items-start">
           <label htmlFor='destino' className='font-bold text-white text-2xl mb-4'>Destino</label>

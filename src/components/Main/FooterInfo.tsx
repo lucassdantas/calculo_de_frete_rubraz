@@ -7,7 +7,7 @@ const FooterInfo: React.FC = () => {
         <p><span className='font-bold'>CNPJ: </span>22.577.009/0001-00 </p>
         <p><span className='font-bold'>CREA-RJ: </span>2023200826 </p>
       </div>
-      <div className="hidden lg:block lg:absolute bg-yellow-rubraz text-black rounded-t-[50px] w-full h-36 bottom-[3%] lg:-left-[60%] z-10"></div>
+      <div className="hidden lg:block lg:absolute bg-yellow-rubraz text-black rounded-t-[50px] w-full h-32 bottom-[3%] lg:-left-[60%] z-10"></div>
     </>
   );
 };

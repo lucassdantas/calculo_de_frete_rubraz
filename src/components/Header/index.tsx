@@ -6,9 +6,9 @@ import { MyAccountIcon } from "./MyAccountIcon";
 
 export const Header = () => {
   return (
-    <header className="w-full flex justify-center z-10 px-4">
+    <header className="w-full flex justify-center z-10 px-4 h-[73px]">
       <div className="max-w-[1080px] w-full">
-        <div className="flex w-full py-5">
+        <div className="flex w-full pt-5">
           <Logo />
 
           <div className="flex flex-col w-2/3 text-black bg-yellow-rubraz rounded-full font-bold items-start max-w-[740px] max-iphone:w-8/10 max-iphone:py-4">
