@@ -36,4 +36,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Fecha a sessão cURL
     curl_close($ch);
 }
-?>
