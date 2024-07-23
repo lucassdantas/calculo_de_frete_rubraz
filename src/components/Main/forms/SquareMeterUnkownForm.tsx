@@ -7,14 +7,19 @@ type Vigotas = {
   vigotaSize: number
 }
 
-const SquareMeterUnkownForm = ({ handleFormStep }: StepProps) => {
-  const initialVigotas: Vigotas[] = [{ vigotaQuantity: 0, vigotaSize: 0 }];
-  const [vigotas, setVigotas] = useState<Vigotas[]>(initialVigotas);
+interface FormProps extends StepProps {
+  formData: any;
+  setFormData: (data: any) => void;
+}
+
+const SquareMeterUnkownForm = ({ handleFormStep, formData, setFormData }: FormProps) => {
+  const [vigotas, setVigotas] = useState<Vigotas[]>(formData.unknownSquareMeters);
 
   const handleVigotaChange = (index: number, field: keyof Vigotas, value: number) => {
     const updatedVigotas = [...vigotas];
     updatedVigotas[index][field] = value;
     setVigotas(updatedVigotas);
+    setFormData({ ...formData, unknownSquareMeters: updatedVigotas });
   };
 
   const addVigota = () => {
@@ -24,6 +29,12 @@ const SquareMeterUnkownForm = ({ handleFormStep }: StepProps) => {
   const removeVigota = (index: number) => {
     const updatedVigotas = vigotas.filter((_, i) => i !== index);
     setVigotas(updatedVigotas);
+    setFormData({ ...formData, unknownSquareMeters: updatedVigotas });
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    handleFormStep(1);
   };
 
   return (
@@ -33,10 +44,10 @@ const SquareMeterUnkownForm = ({ handleFormStep }: StepProps) => {
       transition={{ duration: 0.5 }}
       className="w-full"
     >
-      <div className='text-center lg:text-left transition mt-4 '>
+      <form onSubmit={handleSubmit} className='text-center lg:text-left transition mt-4'>
         <div className='max-h-[352px] overflow-y-auto mb-2 px-2'>
           {vigotas.map((vigota, i) => (
-            <div className='relative flex flex-col lg:flex-row lg:mb-4 mb-8 gap-5 items-end ' key={i}>
+            <div className='relative flex flex-col lg:flex-row lg:mb-4 mb-8 gap-5 items-end' key={i}>
               <div className='flex flex-col w-full lg:w-auto'>
                 <label htmlFor={`vigotaQuantity-${i}`} className='font-bold text-white mb-4'>Quantidade de vigotas</label>
                 <input
@@ -44,7 +55,7 @@ const SquareMeterUnkownForm = ({ handleFormStep }: StepProps) => {
                   type="number"
                   id={`vigotaQuantity-${i}`}
                   name={`vigotaQuantity-${i}`}
-                  value={vigota.vigotaQuantity === 0 ? '' : vigota.vigotaQuantity}
+                  value={vigota.vigotaQuantity}
                   onChange={(e) => handleVigotaChange(i, 'vigotaQuantity', Number(e.target.value))}
                   placeholder="Quantidade das vigotas"
                   className='rounded-full p-4 text-black outline-none w-full'
@@ -57,7 +68,7 @@ const SquareMeterUnkownForm = ({ handleFormStep }: StepProps) => {
                   type="number"
                   id={`vigotaSize-${i}`}
                   name={`vigotaSize-${i}`}
-                  value={vigota.vigotaSize === 0 ? '' : vigota.vigotaSize}
+                  value={vigota.vigotaSize}
                   onChange={(e) => handleVigotaChange(i, 'vigotaSize', Number(e.target.value))}
                   placeholder="Tamanho das vigotas"
                   className='rounded-full p-4 text-black outline-none w-full'
@@ -77,23 +88,23 @@ const SquareMeterUnkownForm = ({ handleFormStep }: StepProps) => {
         <div className='flex flex-col items-center md:flex-row md:justify-between px-2'>
           <div className="w-full md:w-1/2 text-center md:text-left mb-4 md:mb-0">
             <button
-              className='calc-button bg-transparent border-yellow-rubraz border-2 p-4 px-7 rounded-full font-bold cursor-pointer hover:bg-light-yellow-rubraz text-lg tracking-wide'
+              className='calc-button bg-transparent border-yellow-rubraz border-2 p-4 px-5 rounded-full font-bold cursor-pointer hover:bg-light-yellow-rubraz text-lg tracking-wide'
               type="button"
               onClick={addVigota}
             >
               Adicionar Vigota
             </button>
           </div>
-          <div className="w-full md:w-1/2 text-center">
+          <div className="w-full md:w-1/2 text-left">
             <button
-              className='calc-button bg-yellow-rubraz py-4 px-10 rounded-full font-bold cursor-pointer hover:bg-light-yellow-rubraz text-lg tracking-wide'
+              className='calc-button bg-yellow-rubraz py-4 px-5 rounded-full font-bold cursor-pointer hover:bg-light-yellow-rubraz text-lg tracking-wide'
               type="submit"
             >
-              Enviar
+              Calcular distância
             </button>
           </div>
         </div>
-      </div>
+      </form>
     </motion.div>
   );
 };

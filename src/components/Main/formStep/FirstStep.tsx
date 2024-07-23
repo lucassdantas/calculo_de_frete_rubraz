@@ -3,7 +3,12 @@ import SquareMeterKnownForm from '@/components/Main/forms/SquareMeterKnownForm';
 import SquareMeterUnkownForm from '@/components/Main/forms/SquareMeterUnkownForm';
 import { StepProps } from '@/types/StepProps';
 
-export const FirstStep = ({ handleFormStep }: StepProps) => {
+interface FirstStepProps extends StepProps {
+  formData: any;
+  setFormData: (data: any) => void;
+}
+
+export const FirstStep = ({ handleFormStep, formData, setFormData }: FirstStepProps) => {
   const [activeTabIndex, setActiveTabIndex] = useState<number>(0);
 
   return (
@@ -23,8 +28,8 @@ export const FirstStep = ({ handleFormStep }: StepProps) => {
         </button>
       </div>
       <div className='flex justify-center items-center text-center w-full max-w-lg'>
-        {activeTabIndex === 0 && <SquareMeterKnownForm handleFormStep={handleFormStep} />}
-        {activeTabIndex === 1 && <SquareMeterUnkownForm handleFormStep={handleFormStep} />}
+        {activeTabIndex === 0 && <SquareMeterKnownForm handleFormStep={handleFormStep} formData={formData} setFormData={setFormData} />}
+        {activeTabIndex === 1 && <SquareMeterUnkownForm handleFormStep={handleFormStep} formData={formData} setFormData={setFormData} />}
       </div>
     </div>
   );
