@@ -36,7 +36,7 @@ const SquareMeterUnkownForm = ({ handleFormStep }: StepProps) => {
       <div className='text-center lg:text-left transition mt-4 '>
         <div className='max-h-[352px] overflow-y-auto mb-2 px-2'>
           {vigotas.map((vigota, i) => (
-            <div className='relative flex flex-col lg:flex-row mb-4 gap-5 items-end ' key={i}>
+            <div className='relative flex flex-col lg:flex-row lg:mb-4 mb-8 gap-5 items-end ' key={i}>
               <div className='flex flex-col w-full lg:w-auto'>
                 <label htmlFor={`vigotaQuantity-${i}`} className='font-bold text-white mb-4'>Quantidade de vigotas</label>
                 <input
