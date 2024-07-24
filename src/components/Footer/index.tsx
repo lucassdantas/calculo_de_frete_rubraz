@@ -3,7 +3,7 @@ import React from 'react'
 
 export const Footer = () => {
   return (
-    <div className=''>
+    <div className='mt-5'>
       <FooterInfo />
       <div className="lg:hidden lg:invisible flex flex-col  justify-center items-center text-base bg-yellow-rubraz text-black  p-2 w-full z-20 relative ">
         <div>

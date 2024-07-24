@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { StepProps } from '@/types/StepProps';
 import { squareMeterUnkownCalculation } from '@/utils/handleCalculation';
@@ -6,8 +6,8 @@ import { useCurrentProduct } from '@/context/currentProductContext';
 import { FaPlus } from 'react-icons/fa';
 
 type Vigotas = {
-  vigotaQuantity: number;
-  vigotaSize: number;
+  vigotaQuantity: number | '';
+  vigotaSize: number | '';
 }
 
 interface FormProps extends StepProps {
@@ -18,15 +18,20 @@ interface FormProps extends StepProps {
 
 const SquareMeterUnkownForm = ({ handleFormStep, formData, setFormData, setProductValue }: FormProps) => {
   const [vigotas, setVigotas] = useState<Vigotas[]>(formData.unknownSquareMeters);
-  const {currentProduct} = useCurrentProduct()
-  useEffect(() => {
-    const totalVigotaQuantity = vigotas.reduce((total, vigota) => total + vigota.vigotaQuantity, 0);
-    const totalVigotaSize = vigotas.reduce((total, vigota) => total + vigota.vigotaSize, 0);
-    const productValue = squareMeterUnkownCalculation(totalVigotaQuantity, totalVigotaSize, currentProduct.interation);
-    setProductValue(productValue);
-  }, [vigotas, setProductValue]);
+  const { currentProduct } = useCurrentProduct();
 
-  const handleVigotaChange = (index: number, field: keyof Vigotas, value: number) => {
+  useEffect(() => {
+    if (isFormValid()) {
+      const totalVigotaQuantity = vigotas.reduce((total, vigota) => total + (vigota.vigotaQuantity || 0), 0);
+      const totalVigotaSize = vigotas.reduce((total, vigota) => total + (vigota.vigotaSize || 0), 0);
+      const productValue = squareMeterUnkownCalculation(totalVigotaQuantity, totalVigotaSize, currentProduct.interation);
+      setProductValue(productValue);
+    } else {
+      setProductValue(0); // Ou qualquer valor padrão que você desejar quando os campos não são válidos
+    }
+  }, [vigotas, setProductValue, currentProduct.interation]);
+
+  const handleVigotaChange = (index: number, field: keyof Vigotas, value: number | '') => {
     const updatedVigotas = [...vigotas];
     updatedVigotas[index][field] = value;
     setVigotas(updatedVigotas);
@@ -34,7 +39,7 @@ const SquareMeterUnkownForm = ({ handleFormStep, formData, setFormData, setProdu
   };
 
   const addVigota = () => {
-    setVigotas([...vigotas, { vigotaQuantity: 0, vigotaSize: 0 }]);
+    setVigotas([...vigotas, { vigotaQuantity: '', vigotaSize: '' }]);
   };
 
   const removeVigota = (index: number) => {
@@ -43,8 +48,20 @@ const SquareMeterUnkownForm = ({ handleFormStep, formData, setFormData, setProdu
     setFormData({ ...formData, unknownSquareMeters: updatedVigotas });
   };
 
+  const isFormValid = () => {
+    return vigotas.every(vigota => 
+      vigota.vigotaQuantity && vigota.vigotaQuantity > 0 &&
+      vigota.vigotaSize && vigota.vigotaSize > 0
+    );
+  };
+
   const handleNextStep = () => {
-    handleFormStep(1);
+    if (isFormValid()) {
+      handleFormStep(1);
+    } else {
+      // Adicione um alerta ou mensagem de erro aqui para informar ao usuário que o formulário é inválido
+      alert('Todos os campos devem ser maiores que 0.');
+    }
   };
 
   return (
@@ -55,17 +72,17 @@ const SquareMeterUnkownForm = ({ handleFormStep, formData, setFormData, setProdu
       className="w-full"
     >
       <div className='text-center lg:text-left transition mt-4'>
-        <div className='max-h-[232px] overflow-y-auto mb-2 px-2'>
+        <div className='max-h-[332px] overflow-y-auto mb-2 px-2'>
           {vigotas.map((vigota, i) => (
             <div className='relative flex flex-col sm:flex-row lg:mb-4 mb-8 gap-5 lg:items-end ' key={i}>
-
               <div className='flex flex-row-reverse items-center justify-center gap-2 w-full lg:w-auto'>
                 <label htmlFor={`vigotaQuantity-${i}`} className='font-bold text-white'>Qtde. de vigotas</label>
                 <input
+                  required
                   type="number"
                   id={`vigotaQuantity-${i}`}
                   name={`vigotaQuantity-${i}`}
-                  value={vigota.vigotaQuantity}
+                  value={vigota.vigotaQuantity || ''}
                   onChange={(e) => handleVigotaChange(i, 'vigotaQuantity', Number(e.target.value))}
                   placeholder="Qtde."
                   className='rounded-full p-4 text-black outline-none w-[100px] text-center'
@@ -74,10 +91,11 @@ const SquareMeterUnkownForm = ({ handleFormStep, formData, setFormData, setProdu
               <div className='flex flex-row-reverse items-center justify-center gap-2 w-full lg:w-auto'>
                 <label htmlFor={`vigotaSize-${i}`} className='font-bold text-white'>Tam. da vigota</label>
                 <input
+                  required
                   type="number"
                   id={`vigotaSize-${i}`}
                   name={`vigotaSize-${i}`}
-                  value={vigota.vigotaSize}
+                  value={vigota.vigotaSize || ''}
                   onChange={(e) => handleVigotaChange(i, 'vigotaSize', Number(e.target.value))}
                   placeholder="Tam."
                   className='rounded-full p-4 text-black outline-none w-[100px] text-center'
@@ -101,11 +119,10 @@ const SquareMeterUnkownForm = ({ handleFormStep, formData, setFormData, setProdu
             </button>
           </div>
           <div className="w-full md:w-1/2 text-center md:text-left mb-4 md:mb-0">
-            <div className='calc-button cursor-pointer flex gap-2 items-center 'onClick={addVigota}>
-            <FaPlus className='text-yellow-rubraz font-bold cursor-pointer flex' /> <span>Adicionar Vigota</span>
+            <div className='calc-button cursor-pointer flex gap-2 items-center' onClick={addVigota}>
+              <FaPlus className='text-yellow-rubraz font-bold cursor-pointer flex' /> <span>Adicionar Vigota</span>
             </div>
           </div>
-        
         </div>
       </div>
     </motion.div>
