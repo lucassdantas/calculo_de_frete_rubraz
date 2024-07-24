@@ -72,7 +72,7 @@ export const Main: React.FC = () => {
           </div>
         )}
 
-        <h1 className='font-bold text-5xl text-center'>Calculadora <span className='text-yellow-rubraz text-5xl font-normal'>de metragem</span></h1>
+        <h1 className='font-bold text-5xl text-center mb-4'>Calculadora <span className='text-yellow-rubraz text-5xl font-normal'>de metragem</span></h1>
 
         {isLoading && <Loader />}
         {formStep === 0 && <FirstStep handleFormStep={handleFormStep} formData={formData} setFormData={setFormData} setProductValue={setProductValue} />}

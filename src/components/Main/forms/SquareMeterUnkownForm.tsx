@@ -94,7 +94,7 @@ const SquareMeterUnkownForm = ({ handleFormStep, formData, setFormData, setProdu
             </div>
           ))}
         </div>
-        <div className='flex flex-col items-center md:flex-row md:justify-between px-2'>
+        <div className='flex flex-col-reverse items-center md:flex-row md:justify-between px-2 mt-4'>
           <div className="w-full md:w-1/2 lg:text-left text-center">
             <button className='calc-button bg-yellow-rubraz py-4 px-5 rounded-full font-bold cursor-pointer hover:bg-light-yellow-rubraz text-lg tracking-wide' onClick={handleNextStep}>
               Calcular frete
@@ -102,7 +102,7 @@ const SquareMeterUnkownForm = ({ handleFormStep, formData, setFormData, setProdu
           </div>
           <div className="w-full md:w-1/2 text-center md:text-left mb-4 md:mb-0">
             <div className='calc-button cursor-pointer flex gap-2 items-center 'onClick={addVigota}>
-            <FaPlus className='text-yellow-rubraz font-bold cursor-pointer flex' /><span>Adicionar Vigota</span>
+            <FaPlus className='text-yellow-rubraz font-bold cursor-pointer flex' /> <span>Adicionar Vigota</span>
             </div>
           </div>
         
