@@ -9,14 +9,14 @@ import { UserContext } from './context/userContext';
 import { products } from '@/constants';
 
 function App() {
-  const [auth, setAuth] = useState(true);
+  const [auth, setAuth] = useState(false);
   const [currentUser, setCurrentUser] = useState(useContext(UserContext))
   useEffect(() => {
     const checkSession = async () => {
       try {
         const response = await axios.get('http:localhost/rubraz/calculo_de_frete_rubraz/public/backend/session.php', { withCredentials: true });
-        //setCurrentUser(response.data.user)
-        //setAuth(response.data.loggedIn);
+        setCurrentUser(response.data.user)
+        setAuth(response.data.loggedIn);
       } catch (error) {
         console.error('Houve um erro ao verificar a sessão!', error);
       }
@@ -28,8 +28,7 @@ function App() {
   return (
       <Router>
         <Routes>
-          <Route path="/" element={auth ? <MainComponent setAuth={setAuth} Component={Main} currentUser={currentUser} /> : <Login setAuth={setAuth} />} />
-          <Route path="/main" element={auth ? <MainComponent setAuth={setAuth} Component={Main} currentUser={currentUser}/> : <Login setAuth={setAuth} />} />
+          <Route path="/" element={<MainComponent currentUser={currentUser} setAuth={setAuth} auth={auth} /> }/>
         </Routes>
     </Router>
   );

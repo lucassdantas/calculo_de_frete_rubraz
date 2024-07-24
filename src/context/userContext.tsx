@@ -2,7 +2,7 @@ import { User } from "@/types/user";
 import { createContext } from "react";
 
 export const UserContext = createContext<User>({
-    userId:1,
+    userId:0,
     userName:'Lucas',
     userEmail:'teste@teste.com',
     userPhone:'(21) 99999-9999',

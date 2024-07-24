@@ -59,7 +59,6 @@ const SquareMeterUnkownForm = ({ handleFormStep, formData, setFormData, setProdu
     if (isFormValid()) {
       handleFormStep(1);
     } else {
-      // Adicione um alerta ou mensagem de erro aqui para informar ao usuário que o formulário é inválido
       alert('Todos os campos devem ser maiores que 0.');
     }
   };
