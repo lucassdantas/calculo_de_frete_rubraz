@@ -1,4 +1,4 @@
-export const squareMeterValue = 2
+export const priceBySquareMeter = 2
 export const productInteration = {
   laje_tr8644:0.495
 }
