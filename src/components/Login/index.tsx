@@ -22,7 +22,7 @@ export const Login = ({setAuth}:any) => {
       }
     }, [currentForm]);
     return (
-      <div className="flex flex-col items-center text-center justify-center min-h-screen w-full px-4">
+      <div className="flex flex-col items-center text-center justify-center min-h-screen w-full px-4 my-2">
         <img src={whiteLogoRubraz} alt="Logo branca rubraz" className="w-[128px]  mb-12" />
         <div className="bg-opacity-30 bg-dark-blue-rubraz rounded-xl p-8 border border-white border-opacity-30 max-w-lg w-full">
           <div className="text-center mb-6">

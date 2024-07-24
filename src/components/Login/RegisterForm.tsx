@@ -39,18 +39,6 @@ export const RegisterForm = ({ setAuth }: any) => {
 
   return (
     <form className="max-w-lg mx-auto p-4 rounded-lg shadow-lg " onSubmit={handleSubmit}>
-      <div className="text-center mb-4">
-        <label htmlFor="photo" className="relative cursor-pointer">
-          <FaCamera className="text-4xl text-gray-700" />
-          <input
-            type="file"
-            id="photo"
-            className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
-            accept="image/*"
-            onChange={(e) => setPhoto(e.target.files ? e.target.files[0] : null)}
-          />
-        </label>
-      </div>
       <div className="mb-4">
         <input
           type="text"
