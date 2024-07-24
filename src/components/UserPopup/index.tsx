@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect, useRef } from "react";
 import { UserContext } from "@/context/userContext";
 import Cropper from 'react-easy-crop';
 import { getCroppedImg } from '@/utils/cropImage';
+import { MdEdit } from "react-icons/md";
 
 interface UserPopupProps {
   onClose: () => void;
@@ -126,11 +127,11 @@ const UserPopup: React.FC<UserPopupProps> = ({ onClose }) => {
                 </div>
               </div>
             ) : (
-              <div className="relative flex items-center justify-center">
+              <div className="relative flex items-end justify-start">
                 <img
-                  src={userPhoto ? URL.createObjectURL(userPhoto) : `http://localhost:5173/public/userImages/${user.userId}.jpg`}
+                  src={userPhoto ? `http://localhost:5173/userImages/${user.userId}.jpg`:'http://localhost:5173/userImages/default.jpg'}
                   alt="Foto do usuário"
-                  className="rounded-full w-24 h-24 object-cover"
+                  className="rounded-full w-24 h-24 object-cover -mr-6"
                 />
                 <input
                   type="file"
@@ -139,8 +140,8 @@ const UserPopup: React.FC<UserPopupProps> = ({ onClose }) => {
                   className="hidden"
                   id="photoInput"
                 />
-                <label htmlFor="photoInput" className="absolute bottom-0 right-0 bg-yellow-500 p-2 rounded-full cursor-pointer">
-                  <i className="fas fa-pencil-alt text-white"></i>
+                <label htmlFor="photoInput" className=" bg-yellow-500 p-1 rounded-full cursor-pointer mb-2">
+                  <MdEdit className="text-white text-sm"/>
                 </label>
               </div>
             )}
@@ -151,7 +152,7 @@ const UserPopup: React.FC<UserPopupProps> = ({ onClose }) => {
               type="text"
               value={userName}
               onChange={(e) => setUserName(e.target.value)}
-              className="block w-full mt-1 border px-2"
+              className="block w-full mt-1 border px-2 font-normal"
             />
           </label>
           <label>
@@ -160,7 +161,7 @@ const UserPopup: React.FC<UserPopupProps> = ({ onClose }) => {
               type="text"
               value={userPhone}
               onChange={(e) => setUserPhone(e.target.value)}
-              className="block w-full mt-1 border px-2"
+              className="block w-full mt-1 border px-2 font-normal"
             />
           </label>
           <label>
@@ -169,7 +170,7 @@ const UserPopup: React.FC<UserPopupProps> = ({ onClose }) => {
               type="text"
               value={userCnpj}
               onChange={(e) => setUserCnpj(e.target.value)}
-              className="block w-full mt-1 border px-2"
+              className="block w-full mt-1 border px-2 font-normal"
             />
           </label>
           <label>
@@ -178,7 +179,7 @@ const UserPopup: React.FC<UserPopupProps> = ({ onClose }) => {
               type="email"
               value={userEmail}
               onChange={(e) => setUserEmail(e.target.value)}
-              className="block w-full mt-1 border px-2"
+              className="block w-full mt-1 border px-2 font-normal"
             />
           </label>
           <label>
@@ -187,7 +188,7 @@ const UserPopup: React.FC<UserPopupProps> = ({ onClose }) => {
               type="password"
               value={userPassword}
               onChange={(e) => setUserPassword(e.target.value)}
-              className="block w-full mt-1 border px-2"
+              className="block w-full mt-1 border px-2 font-normal"
             />
           </label>
           <button type="submit" className="mt-4 bg-yellow-500 text-white p-2 rounded">Salvar</button>
