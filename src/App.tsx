@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Login } from './components/Login';
 import { Main } from './components/Main';
 import { UserContext } from './context/userContext';
+import { products } from '@/constants';
 
 function App() {
   const [auth, setAuth] = useState(true);
@@ -25,11 +26,11 @@ function App() {
   }, []);
   
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={auth ? <MainComponent setAuth={setAuth} Component={Main} currentUser={currentUser} /> : <Login setAuth={setAuth} />} />
-        <Route path="/main" element={auth ? <MainComponent setAuth={setAuth} Component={Main} currentUser={currentUser}/> : <Login setAuth={setAuth} />} />
-      </Routes>
+      <Router>
+        <Routes>
+          <Route path="/" element={auth ? <MainComponent setAuth={setAuth} Component={Main} currentUser={currentUser} /> : <Login setAuth={setAuth} />} />
+          <Route path="/main" element={auth ? <MainComponent setAuth={setAuth} Component={Main} currentUser={currentUser}/> : <Login setAuth={setAuth} />} />
+        </Routes>
     </Router>
   );
 }

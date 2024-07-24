@@ -5,6 +5,8 @@ import Loader from './Loader';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { FirstStep } from '@/components/Main/formStep/FirstStep';
 import './style.css';
+import { useCurrentProduct } from '@/context/currentProductContext';
+import { products } from '@/constants';
 
 export const Main: React.FC = () => {
   const [distanceText, setDistanceText] = useState<string>('');
@@ -22,6 +24,7 @@ export const Main: React.FC = () => {
   const handleResponseSuccess = (responseData: string) => {
     if (responseData) {
       const distanceValue = (Number(responseData) / 1000 * 2).toFixed(2);
+      setProductValue(Number(productValue)+Number(distanceValue))
       setDistanceText(distanceValue.replace('.', ','));
       setInvisible('');
       console.log('response' + responseData);
@@ -55,7 +58,6 @@ export const Main: React.FC = () => {
   const formatCurrency = (value: number): string => {
     return value.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   };
-
   return (
     <main className="w-full min-h-[100vh] flex justify-center items-center z-10 px-4 lg:pt-[0px] pb-12">
       <div className="max-w-[1080px] flex flex-col w-full items-center justify-center text-white gap-4">
@@ -70,24 +72,16 @@ export const Main: React.FC = () => {
           </div>
         )}
 
-        <h1 className='font-bold text-5xl text-center'>
-          Calculadora <span className='text-yellow-rubraz text-5xl font-normal'>de metragem</span>
-        </h1>
+        <h1 className='font-bold text-5xl text-center'>Calculadora <span className='text-yellow-rubraz text-5xl font-normal'>de metragem</span></h1>
 
         {isLoading && <Loader />}
         {formStep === 0 && <FirstStep handleFormStep={handleFormStep} formData={formData} setFormData={setFormData} setProductValue={setProductValue} />}
         {formStep === 1 && <AddressForm onSubmit={handleSubmit} />}
         
-        {!isRequestLoading && distanceText && (
-          <div id="resultado" className={`${invisible} lg:pb-16`}>
-            <h3 className='font-bold mb-2 text-xl'>Resultado</h3>
-            <p>A distância de ida e volta do caminhão ao destino é: <span className='font-bold'>{distanceText} km</span></p>
-          </div>
-        )}
-
-        {productValue > 0 && (
+        {!isRequestLoading && productValue > 0 && (
           <div id="productValue" className="mt-4 w-full max-w-lg">
-            <h3 className='font-bold mb-2 text-xl'>Valor total</h3>
+            <h3 className='font-bold mb-2 text-xl'>Resultado</h3>
+            {distanceText && <p>A distância de ida e volta do caminhão ao destino é: <span className='font-bold'>{distanceText} km</span></p>}
             <p>O valor total do produto é: <span className='font-bold'>R$ {formatCurrency(productValue)}</span></p>
           </div>
         )}

@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { motion } from 'framer-motion';
 import { StepProps } from '@/types/StepProps';
 import { squareMeterUnkownCalculation } from '@/utils/handleCalculation';
-import { productInteration } from '@/constants';
+import { useCurrentProduct } from '@/context/currentProductContext';
 
 type Vigotas = {
   vigotaQuantity: number;
@@ -17,11 +17,11 @@ interface FormProps extends StepProps {
 
 const SquareMeterUnkownForm = ({ handleFormStep, formData, setFormData, setProductValue }: FormProps) => {
   const [vigotas, setVigotas] = useState<Vigotas[]>(formData.unknownSquareMeters);
-
+  const {currentProduct} = useCurrentProduct()
   useEffect(() => {
     const totalVigotaQuantity = vigotas.reduce((total, vigota) => total + vigota.vigotaQuantity, 0);
     const totalVigotaSize = vigotas.reduce((total, vigota) => total + vigota.vigotaSize, 0);
-    const productValue = squareMeterUnkownCalculation(totalVigotaQuantity, totalVigotaSize, productInteration.laje_tr8644);
+    const productValue = squareMeterUnkownCalculation(totalVigotaQuantity, totalVigotaSize, currentProduct.interation);
     setProductValue(productValue);
   }, [vigotas, setProductValue]);
 
