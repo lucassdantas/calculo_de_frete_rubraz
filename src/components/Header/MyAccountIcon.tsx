@@ -8,6 +8,7 @@ export const MyAccountIcon = () => {
   const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const userId = 0
   console.log(user)
   const handleAccountMenuOpen = () => {
     setIsAccountMenuOpen(true);
@@ -28,7 +29,7 @@ export const MyAccountIcon = () => {
     >
       <div className='flex items-center gap-2 h-full'>
         <img
-          src={`http://localhost:5173/public/userImages/${user.userId}.jpg`}
+          src={`http://localhost:5173/public/userImages/${userId}.jpg`}
           alt='Imagem do usuário'
           className='rounded-full w-[38px] cursor-pointer'
         />
