@@ -12,7 +12,7 @@ type Vigotas = {
 interface FormProps extends StepProps {
   formData: any;
   setFormData: (data: any) => void;
-  setProductValue: (value: number) => void; // Adicione este prop
+  setProductValue: (value: number) => void;
 }
 
 const SquareMeterUnkownForm = ({ handleFormStep, formData, setFormData, setProductValue }: FormProps) => {
@@ -23,7 +23,7 @@ const SquareMeterUnkownForm = ({ handleFormStep, formData, setFormData, setProdu
     const totalVigotaSize = vigotas.reduce((total, vigota) => total + vigota.vigotaSize, 0);
     const productValue = squareMeterUnkownCalculation(totalVigotaQuantity, totalVigotaSize, productInteration.laje_tr8644);
     setProductValue(productValue);
-  }, [vigotas, setProductValue, formData.productInteration]);
+  }, [vigotas, setProductValue]);
 
   const handleVigotaChange = (index: number, field: keyof Vigotas, value: number) => {
     const updatedVigotas = [...vigotas];
@@ -42,8 +42,7 @@ const SquareMeterUnkownForm = ({ handleFormStep, formData, setFormData, setProdu
     setFormData({ ...formData, unknownSquareMeters: updatedVigotas });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleNextStep = () => {
     handleFormStep(1);
   };
 
@@ -54,14 +53,13 @@ const SquareMeterUnkownForm = ({ handleFormStep, formData, setFormData, setProdu
       transition={{ duration: 0.5 }}
       className="w-full"
     >
-      <form onSubmit={handleSubmit} className='text-center lg:text-left transition mt-4'>
-        <div className='max-h-[352px] overflow-y-auto mb-2 px-2'>
+      <div className='text-center lg:text-left transition mt-4'>
+        <div className='max-h-[302px] overflow-y-auto mb-2 px-2'>
           {vigotas.map((vigota, i) => (
             <div className='relative flex flex-col lg:flex-row lg:mb-4 mb-8 gap-5 items-end' key={i}>
               <div className='flex flex-col w-full lg:w-auto'>
                 <label htmlFor={`vigotaQuantity-${i}`} className='font-bold text-white mb-4'>Quantidade de vigotas</label>
                 <input
-                  required
                   type="number"
                   id={`vigotaQuantity-${i}`}
                   name={`vigotaQuantity-${i}`}
@@ -74,7 +72,6 @@ const SquareMeterUnkownForm = ({ handleFormStep, formData, setFormData, setProdu
               <div className='flex flex-col w-full lg:w-auto'>
                 <label htmlFor={`vigotaSize-${i}`} className='font-bold text-white mb-4'>Tamanho da vigota</label>
                 <input
-                  required
                   type="number"
                   id={`vigotaSize-${i}`}
                   name={`vigotaSize-${i}`}
@@ -108,13 +105,13 @@ const SquareMeterUnkownForm = ({ handleFormStep, formData, setFormData, setProdu
           <div className="w-full md:w-1/2 text-left">
             <button
               className='calc-button bg-yellow-rubraz py-4 px-5 rounded-full font-bold cursor-pointer hover:bg-light-yellow-rubraz text-lg tracking-wide'
-              type="submit"
+              onClick={handleNextStep}
             >
-              Calcular distância
+              Calcular frete
             </button>
           </div>
         </div>
-      </form>
+      </div>
     </motion.div>
   );
 };

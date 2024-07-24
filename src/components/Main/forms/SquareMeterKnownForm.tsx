@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { StepProps } from '@/types/StepProps';
 import { squareMeterKownCalculation } from '@/utils/handleCalculation';
@@ -11,13 +11,13 @@ interface FormProps extends StepProps {
 }
 
 const SquareMeterKnownForm = ({ handleFormStep, formData, setFormData, setProductValue }: FormProps) => {
+  useEffect(() => {
+    const result = squareMeterKownCalculation(Number(formData.knownSquareMeter), priceBySquareMeter);
+    setProductValue(result);
+  }, [formData.knownSquareMeter, setProductValue]);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setFormData({ ...formData, knownSquareMeter: value });
-    if (value) {
-      const result = squareMeterKownCalculation(Number(value), priceBySquareMeter);
-      setProductValue(result);
-    }
+    setFormData({ ...formData, knownSquareMeter: e.target.value });
   };
 
   const handleNextStep = () => {
@@ -32,25 +32,27 @@ const SquareMeterKnownForm = ({ handleFormStep, formData, setFormData, setProduc
       className="w-full"
     >
       <div id="squareMeterKownForm" className='lg:text-left text-center transition'>
-        <div className="flex flex-col mb-4 lg:items-start">
-          <label htmlFor='squareMeter' className='font-bold text-white text-2xl mb-4'>Tamanho em m³</label>
-          <input
-            type="text"
-            id="squareMeter"
-            name="squareMeter"
-            placeholder="Digite o tamanho em m³"
-            className='rounded-full p-4 text-black outline-none max-w-[512px] w-full mb-4'
-            required
-            value={formData.knownSquareMeter}
-            onChange={handleChange}
-          />
+        <div>
+          <div className="flex flex-col mb-4 lg:items-start">
+            <label htmlFor='squareMeter' className='font-bold text-white text-2xl mb-4'>Tamanho em m³</label>
+            <input
+              type="number"
+              id="squareMeter"
+              name="squareMeter"
+              placeholder="Digite o tamanho em m³"
+              className='rounded-full p-4 text-black outline-none max-w-[512px] w-full mb-4'
+              required
+              value={formData.knownSquareMeter}
+              onChange={handleChange}
+            />
+          </div>
+          <button
+            className='calc-button bg-yellow-rubraz p-4 rounded-full text-center font-bold cursor-pointer hover:bg-light-yellow-rubraz text-lg tracking-wide'
+            onClick={handleNextStep}
+          >
+            Calcular frete
+          </button>
         </div>
-        <button
-          className='calc-button bg-yellow-rubraz p-4 rounded-full text-center font-bold cursor-pointer hover:bg-light-yellow-rubraz text-lg tracking-wide'
-          onClick={handleNextStep}
-        >
-          Próxima Etapa
-        </button>
       </div>
     </motion.div>
   );
