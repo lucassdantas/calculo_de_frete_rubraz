@@ -40,7 +40,7 @@ const SquareMeterKnownForm = ({ handleFormStep, formData, setFormData, setProduc
               id="squareMeter"
               name="squareMeter"
               placeholder="Digite o tamanho em m³"
-              className='rounded-full p-4 text-black outline-none max-w-[512px] w-full mb-4'
+              className='rounded-full p-4 text-black outline-none max-w-xl w-full mb-4'
               required
               value={formData.knownSquareMeter}
               onChange={handleChange}

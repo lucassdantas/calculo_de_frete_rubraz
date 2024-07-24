@@ -62,7 +62,7 @@ export const Main: React.FC = () => {
     <main className="w-full min-h-[100vh] flex justify-center items-center z-10 px-4 lg:pt-[0px] pb-12">
       <div className="max-w-[1080px] flex flex-col w-full items-center justify-center text-white gap-4">
         {formStep > 0 && (
-          <div className='w-full max-w-lg mb-4'>
+          <div className='w-full max-w-xl mb-4'>
             <div 
               onClick={() => handleFormStep(formStep - 1)} 
               className='flex max-w-[120px] bg-yellow-rubraz p-2 rounded-full font-bold cursor-pointer hover:bg-light-yellow-rubraz text-lg tracking-wide'
@@ -79,7 +79,7 @@ export const Main: React.FC = () => {
         {formStep === 1 && <AddressForm onSubmit={handleSubmit} />}
         
         {!isRequestLoading && productValue > 0 && (
-          <div id="productValue" className="mt-4 w-full max-w-lg">
+          <div id="productValue" className="mt-4 w-full max-w-xl">
             <h3 className='font-bold mb-2 text-xl'>Resultado</h3>
             {distanceText && <p>A distância de ida e volta do caminhão ao destino é: <span className='font-bold'>{distanceText} km</span></p>}
             <p>O valor total do produto é: <span className='font-bold'>R$ {formatCurrency(productValue)}</span></p>
