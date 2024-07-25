@@ -34,11 +34,14 @@ try {
             $_SESSION['userPhone'] = $user['userPhone'];
             $_SESSION['userCpfOrCnpj'] = $user['userCpfOrCnpj'];
             $_SESSION['userHasImage'] = $user['userHasImage'];
+            $_SESSION['userDateOfCreation'] = $user['userDateOfCreation'];
+            // Remove o índice userPassword da variável user
+            unset($user['userPassword']);
             
             $response['user'] = $user;
             $response['success'] = true;
         } else {
-            $response['message'] = 'Senha incorreta.';
+            $response['message'] = 'Usuário não encontrado';
         }
     } else {
         $response['message'] = 'Usuário não encontrado.';
@@ -49,3 +52,4 @@ try {
 } catch (PDOException $e) {
     echo json_encode(['success' => false, 'message' => 'Falha na conexão: ' . $e->getMessage()]);
 }
+?>
