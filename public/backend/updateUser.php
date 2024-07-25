@@ -10,14 +10,12 @@ function clean_input($data) {
 }
 
 // Obter dados do POST
-$data = json_decode(file_get_contents('php://input'), true);
-
-$userId = clean_input($data['userId']);
-$userName = clean_input($data['userName']);
-$userPhone = clean_input($data['userPhone']);
-$userCnpj = clean_input($data['userCnpj']);
-$userEmail = clean_input($data['userEmail']);
-$userPassword = clean_input($data['userPassword']);
+$userId = clean_input($_POST['userId'] ?? '');
+$userName = clean_input($_POST['userName'] ?? '');
+$userPhone = clean_input($_POST['userPhone'] ?? '');
+$userCpfOrCnpj = clean_input($_POST['userCpfOrCnpj'] ?? '');
+$userEmail = clean_input($_POST['userEmail'] ?? '');
+$userPassword = clean_input($_POST['userPassword'] ?? '');
 
 // Verifique se a senha foi fornecida e faça o hash se necessário
 $userPasswordHashed = !empty($userPassword) ? password_hash($userPassword, PASSWORD_DEFAULT) : null;
@@ -28,7 +26,7 @@ try {
     $pdo = $database->getConnection();
 
     // Preparar a instrução SQL
-    $sql = 'UPDATE users SET userName = :userName, userPhone = :userPhone, userCnpj = :userCnpj, userEmail = :userEmail' . 
+    $sql = 'UPDATE rubraz_users SET userName = :userName, userPhone = :userPhone, userCpfOrCnpj = :userCpfOrCnpj, userEmail = :userEmail' . 
            (!empty($userPasswordHashed) ? ', userPassword = :userPassword' : '') . 
            ' WHERE userId = :userId';
     $stmt = $pdo->prepare($sql);
@@ -36,7 +34,7 @@ try {
     // Vincular parâmetros
     $stmt->bindParam(':userName', $userName);
     $stmt->bindParam(':userPhone', $userPhone);
-    $stmt->bindParam(':userCnpj', $userCnpj);
+    $stmt->bindParam(':userCpfOrCnpj', $userCpfOrCnpj);
     $stmt->bindParam(':userEmail', $userEmail);
     $stmt->bindParam(':userId', $userId);
     if (!empty($userPasswordHashed)) {

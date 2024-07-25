@@ -3,12 +3,12 @@ import React from "react";
 interface UserFormProps {
   userName: string;
   userPhone: string;
-  userCnpj: string;
+  userCpfOrCnpj: string;
   userEmail: string;
   userPassword: string;
   onChangeName: (value: string) => void;
   onChangePhone: (value: string) => void;
-  onChangeCnpj: (value: string) => void;
+  onChangeCpfOrCnpj: (value: string) => void;
   onChangeEmail: (value: string) => void;
   onChangePassword: (value: string) => void;
   onSubmit: (e: React.FormEvent) => void;
@@ -17,12 +17,12 @@ interface UserFormProps {
 const UserForm: React.FC<UserFormProps> = ({
   userName,
   userPhone,
-  userCnpj,
+  userCpfOrCnpj,
   userEmail,
   userPassword,
   onChangeName,
   onChangePhone,
-  onChangeCnpj,
+  onChangeCpfOrCnpj,
   onChangeEmail,
   onChangePassword,
   onSubmit,
@@ -52,8 +52,8 @@ const UserForm: React.FC<UserFormProps> = ({
       <label className="block text-gray-700">Cpf ou CNPJ</label>
       <input
         type="text"
-        value={userCnpj}
-        onChange={(e) => onChangeCnpj(e.target.value)}
+        value={userCpfOrCnpj}
+        onChange={(e) => onChangeCpfOrCnpj(e.target.value)}
         className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-opacity-50"
         required
       />

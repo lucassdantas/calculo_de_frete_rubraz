@@ -3,7 +3,7 @@ export interface User{
     userName:string;
     userPhone:string;
     userEmail:string;
-    userCnpj:string;
+    userCpfOrCnpj:string;
     userHasImage:boolean;
     userDateOfCreation:string;
 }

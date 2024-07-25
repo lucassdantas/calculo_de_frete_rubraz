@@ -18,8 +18,6 @@ export const LoginForm = ({ setAuth, setCurrentForm }: any) => {
     setMessage('');
     try {
       const response = await axios.post(`${backendUrl}login.php`, { email, password }, { withCredentials: true });
-      console.log(email, password);
-      console.log(response);
       if (response.data.success) {
         setMessage('sucesso!');
         setAuth(true);

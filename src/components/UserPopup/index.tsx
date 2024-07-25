@@ -1,7 +1,9 @@
 import React, { useState, useContext, useEffect, useRef } from "react";
+import axios from "axios";
 import { UserContext } from "@/context/userContext";
-import UserPhoto from "./UserPhoto";
-import UserForm from "@/components/UserPopup/UserFOrm";
+import { backendUrl } from "@/constants";
+import UserForm from '@/components/UserPopup/UserForm'
+import UserPhoto from "@/components/UserPopup/UserPhoto";
 
 interface UserPopupProps {
   onClose: () => void;
@@ -11,10 +13,10 @@ const UserPopup: React.FC<UserPopupProps> = ({ onClose }) => {
   const userContext = useContext(UserContext);
   if (!userContext) return <div>Carregando...</div>;
   const user = userContext.currentUser;
-  
+
   const [userName, setUserName] = useState(user.userName);
   const [userPhone, setUserPhone] = useState(user.userPhone);
-  const [userCnpj, setUserCnpj] = useState(user.userCnpj);
+  const [userCpfOrCnpj, setUserCpfOrCnpj] = useState(user.userCpfOrCnpj);
   const [userEmail, setUserEmail] = useState(user.userEmail);
   const [userPassword, setUserPassword] = useState("");
   const [userPhoto, setUserPhoto] = useState<File | null>(null);
@@ -54,19 +56,24 @@ const UserPopup: React.FC<UserPopupProps> = ({ onClose }) => {
     formData.append("userId", user.userId.toString());
     formData.append("userName", userName);
     formData.append("userPhone", userPhone);
-    formData.append("userCnpj", userCnpj);
+    formData.append("userCpfOrCnpj", userCpfOrCnpj);
     formData.append("userEmail", userEmail);
     formData.append("userPassword", userPassword);
     if (userPhoto) {
       formData.append("userPhoto", userPhoto, `${user.userId}.jpg`);
     }
 
-    await fetch('http://localhost/public/backend/updateUser.php', {
-      method: 'POST',
-      body: formData,
-    });
-
-    onClose();
+    try {
+      const response = await axios.put(`${backendUrl}updateUser.php`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      console.log(response.data);
+      onClose();
+    } catch (error) {
+      console.error("Erro ao atualizar o perfil:", error);
+    }
   };
 
   return (
@@ -87,12 +94,12 @@ const UserPopup: React.FC<UserPopupProps> = ({ onClose }) => {
         <UserForm
           userName={userName}
           userPhone={userPhone}
-          userCnpj={userCnpj}
+          userCpfOrCnpj={userCpfOrCnpj}
           userEmail={userEmail}
           userPassword={userPassword}
           onChangeName={setUserName}
           onChangePhone={setUserPhone}
-          onChangeCnpj={setUserCnpj}
+          onChangeCpfOrCnpj={setUserCpfOrCnpj}
           onChangeEmail={setUserEmail}
           onChangePassword={setUserPassword}
           onSubmit={handleSubmit}
