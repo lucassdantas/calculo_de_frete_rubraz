@@ -1,0 +1,6 @@
+.mainComponent .bgImage{
+    background-image:url('/imagens/modelo-para-area-de-login.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}

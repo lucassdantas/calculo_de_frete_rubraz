@@ -71,7 +71,7 @@ const SquareMeterUnkownForm = ({ handleFormStep, formData, setFormData, setProdu
       className="w-full"
     >
       <div className='text-center lg:text-left transition mt-4'>
-        <div className='max-h-[332px] overflow-y-auto mb-2 px-2'>
+        <div className='max-h-[282px] overflow-y-auto mb-2 px-2'>
           {vigotas.map((vigota, i) => (
             <div className='relative flex flex-col sm:flex-row lg:mb-4 mb-8 gap-5 lg:items-end ' key={i}>
               <div className='flex flex-row-reverse items-center justify-center gap-2 w-full lg:w-auto'>
