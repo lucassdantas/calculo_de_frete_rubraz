@@ -27,7 +27,6 @@ export const Main: React.FC = () => {
       setProductValue(Number(productValue)+Number(distanceValue))
       setDistanceText(distanceValue.replace('.', ','));
       setInvisible('');
-      console.log('response' + responseData);
     }
   };
 

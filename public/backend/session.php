@@ -9,13 +9,15 @@ if (!isset($_SESSION['userId'])) {
     exit;
 }
 if (isset($_SESSION['userId'])) {
-    $response['loggedIn'] = true;
-    $_SESSION['userId']     = $user['userId'];
-    $_SESSION['userEmail']  = $user['userEmail'];
-    $_SESSION['userName']   = $user['userName'];
-    $_SESSION['userPhone']  = $user['userPhone'];
+    $response['user']['userId']         = $_SESSION['userId'];
+    $response['user']['userName']       = $_SESSION['userName'];
+    $response['user']['userEmail']      = $_SESSION['userEmail'];
+    $response['user']['userPhone']      = $_SESSION['userPhone'];
+    $response['user']['userCpfOrCnpj']  = $_SESSION['userCpfOrCnpj'];
+    $response['user']['userHasImage']   = $_SESSION['userHasImage'];
+    
+    $response['loggedIn']   = true;
     $response['success']    = true;
 }
 
 echo json_encode($response);
-?>

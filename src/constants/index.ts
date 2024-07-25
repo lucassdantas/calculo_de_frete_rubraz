@@ -1,3 +1,6 @@
+export const url = 'http://localhost/'
+export const userImagesDirectoryUrl = `${url}userImages/`
+export const backendUrl = 'http://localhost/backend/'
 export const priceBySquareMeter = 2
 export const products = {
   laje_tr8644:{
@@ -8,3 +11,4 @@ export const products = {
   }
 }
 export const pricePerKmDistance = 2
+
