@@ -66,15 +66,12 @@ const UserPopup: React.FC<UserPopupProps> = ({ onClose }) => {
       const response = await axios.post(`${backendUrl}updateUser.php`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
-      console.log(response)
       if (Number(response.data.user.userId) === userContext.currentUser.userId) {
         const updatedUser = {
           ...userContext.currentUser,
           ...response.data.user,
           userId:Number(response.data.user.userId)
         };
-        
-        console.log(userContext)
         userContext.setCurrentUser(updatedUser);
       }
       
