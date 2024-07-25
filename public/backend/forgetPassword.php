@@ -1,10 +1,11 @@
 <?php
+header('Content-Type: application/json');
+include_once './config/cors.php'; 
 include_once './config/db.php';
 include_once './email.php';
 
 $data = json_decode(file_get_contents('php://input'), true);
 $userEmail = $data['email'];
-
 try {
     $database = new Database();
     $pdo = $database->getConnection();
@@ -16,7 +17,6 @@ try {
 
     if ($stmt->rowCount() > 0) {
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
         // Gera um token de redefinição de senha
         $resetToken = bin2hex(random_bytes(16));
         $resetTokenExpires = date('Y-m-d H:i:s', strtotime('+1 hour'));
