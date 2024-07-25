@@ -1,22 +1,40 @@
 // src/components/MainComponent/index.tsx
 
+import axios from 'axios';
+import FooterInfo from '@/components/Footer/FooterInfo';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { Main } from '@/components/Main';
 import { UserContext } from '@/context/userContext';
 import { CurrentProductProvider } from '@/context/currentProductContext';
-import './style.css';
 import { Login } from '@/components/Login';
-import FooterInfo from '@/components/Footer/FooterInfo';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { backendUrl } from '@/constants';
+import './style.css';
 
 export const MainComponent = ({ setAuth, auth }: any) => {
   const userContext = useContext(UserContext);
+  const navigation = useNavigate()
 
-  if (!userContext) {
-    return <div>Carregando...</div>;
-  }
+  if (!userContext) return <div>Carregando...</div>; 
+  
+  useEffect(() => {
+    const checkSession = async () => {
+      try {
+        const response = await axios.get(`${backendUrl}session.php`, { withCredentials: true });
+        if (userContext) {
+          userContext.setCurrentUser(response.data.user);
+          setAuth(response.data.loggedIn);
+          if(response.data.loggedIn) navigation('/')
+        }
+      } catch (error) {
+        console.error('Houve um erro ao verificar a sessão!', error);
+      }
+    };
 
+    checkSession();
+  }, []);
   const { currentUser } = userContext;
 
   return (

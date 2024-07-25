@@ -6,7 +6,8 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { FirstStep } from '@/components/Main/formStep/FirstStep';
 import './style.css';
 import { useCurrentProduct } from '@/context/currentProductContext';
-import { products } from '@/constants';
+import { backendUrl, pricePerKmDistance, products } from '@/constants';
+import { freightCalculation } from '@/utils/handleCalculation';
 
 export const Main: React.FC = () => {
   const [distanceText, setDistanceText] = useState<string>('');
@@ -24,7 +25,8 @@ export const Main: React.FC = () => {
   const handleResponseSuccess = (responseData: string) => {
     if (responseData) {
       const distanceValue = (Number(responseData) / 1000 * 2).toFixed(2);
-      setProductValue(Number(productValue)+Number(distanceValue))
+      const distancePrice = freightCalculation(Number(distanceValue), pricePerKmDistance)
+      setProductValue(Number(productValue)+Number(distancePrice))
       setDistanceText(distanceValue.replace('.', ','));
       setInvisible('');
     }
@@ -37,9 +39,7 @@ export const Main: React.FC = () => {
     const formData = new FormData(form);
 
     try {
-      const testUrl = '/public/';
-      const productionUrl = '/parceiros/';
-      const response: AxiosResponse = await axios.post(testUrl + 'backend/calcular_distancia.php', formData);
+      const response: AxiosResponse = await axios.post(backendUrl+'/calcular_distancia.php', formData);
       console.log('response' + response);
       handleResponseSuccess(response.data.distanceValue);
     } catch (error) {
@@ -64,9 +64,9 @@ export const Main: React.FC = () => {
           <div className='w-full max-w-xl mb-4'>
             <div 
               onClick={() => handleFormStep(formStep - 1)} 
-              className='flex max-w-[120px] bg-yellow-rubraz p-2 rounded-full font-bold cursor-pointer hover:bg-light-yellow-rubraz text-lg tracking-wide'
+              className='flex max-w-[120px] font-bold cursor-pointer text-lg tracking-wide items-center'
             >
-              <ArrowBackIcon className="mr-2" />Voltar
+              <ArrowBackIcon className="mr-2 text-yellow-rubraz" />Voltar
             </div>
           </div>
         )}
@@ -82,6 +82,7 @@ export const Main: React.FC = () => {
             <h3 className='font-bold mb-2 text-xl'>Resultado</h3>
             {distanceText && <p>A distância de ida e volta do caminhão ao destino é: <span className='font-bold'>{distanceText} km</span></p>}
             <p>O valor total do produto é: <span className='font-bold'>R$ {formatCurrency(productValue)}</span></p>
+            {distanceText && productValue && <p>O valor total do produto com frete é de: <span className='font-bold'>R$ {formatCurrency(productValue)}</span></p>}
           </div>
         )}
       </div>
