@@ -8,8 +8,7 @@ export const MyAccountIcon = () => {
   const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
-  const userId = 0
-  console.log(user)
+  const userId = user? user.currentUser.userId : 0 
   const handleAccountMenuOpen = () => {
     setIsAccountMenuOpen(true);
   };

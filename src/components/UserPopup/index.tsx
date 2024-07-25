@@ -9,7 +9,9 @@ interface UserPopupProps {
 }
 
 const UserPopup: React.FC<UserPopupProps> = ({ onClose }) => {
-  const user = useContext(UserContext);
+  const currentUser = useContext(UserContext);
+  if(!currentUser) return <div>Carregando...</div>
+  const user = currentUser?.currentUser
   const [userName, setUserName] = useState(user.userName);
   const [userPhone, setUserPhone] = useState(user.userPhone);
   const [userCnpj, setUserCnpj] = useState(user.userCnpj);
@@ -88,7 +90,7 @@ const UserPopup: React.FC<UserPopupProps> = ({ onClose }) => {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
-      <div className="bg-white p-6 rounded-lg shadow-lg relative w-full max-w-md h-full max-h-[90vh] overflow-y-scroll" ref={popupRef}>
+      <div className="flex flex-col justify-center bg-white p-6 rounded-lg shadow-lg relative w-full max-w-md h-fit max-h-[90vh] overflow-y-scroll " ref={popupRef}>
         <button
           onClick={onClose}
           className="absolute top-2 right-2 text-gray-600 hover:text-gray-800"
