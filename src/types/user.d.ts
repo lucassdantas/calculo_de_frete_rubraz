@@ -4,5 +4,6 @@ export interface User{
     userPhone:string;
     userEmail:string;
     userCnpj:string;
+    userHasImage:boolean;
     userDateOfCreation:string;
 }

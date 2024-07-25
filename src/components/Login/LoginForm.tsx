@@ -1,26 +1,40 @@
-import axios from 'axios';
-import React, { FormEvent, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+// src/components/Login/LoginForm.tsx
 
-export const LoginForm = ({setAuth, setCurrentForm}:any) => {
-  const [username, setUsername] = useState<string>('');
+import { backendUrl } from '@/constants';
+import axios from 'axios';
+import React, { FormEvent, useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from '@/context/userContext';
+
+export const LoginForm = ({ setAuth, setCurrentForm }: any) => {
+  const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [message, setMessage] = useState<string>('');
   const navigate = useNavigate();
+  const userContext = useContext(UserContext);
 
   const handleSubmit = async (e: FormEvent) => {
-      e.preventDefault();
-      setMessage('')
-      try {
-          const response = await axios.post('backend/login.php', { username, password }, { withCredentials: true });
-          console.log(response)
-          if (response.data.sucess) {
-              setMessage("sucesso!");
-              setAuth(true); 
-              navigate('/');
-          } else setMessage('Usuário não encontrado.');
-      } catch(error) {setMessage('Erro ao conectar ao servidor');}
+    e.preventDefault();
+    setMessage('');
+    try {
+      const response = await axios.post(`${backendUrl}login.php`, { email, password }, { withCredentials: true });
+      console.log(email, password);
+      console.log(response);
+      if (response.data.success) {
+        setMessage('sucesso!');
+        setAuth(true);
+        if (userContext) {
+          userContext.setCurrentUser(response.data.user);
+        }
+        navigate('/');
+      } else {
+        setMessage('Usuário não encontrado.');
+      }
+    } catch (error) {
+      setMessage('Erro ao conectar ao servidor');
+    }
   };
+
   return (
     <form className="" onSubmit={handleSubmit}>
       <div className='mb-4'>
@@ -30,7 +44,7 @@ export const LoginForm = ({setAuth, setCurrentForm}:any) => {
           name='email'
           id='email'
           className="w-full p-4 rounded-full text-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-rubraz"
-          onChange={(e) => setUsername(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
         />
       </div>
       <div className='mb-2'>
@@ -41,7 +55,6 @@ export const LoginForm = ({setAuth, setCurrentForm}:any) => {
           placeholder="Senha"
           className="w-full p-4 rounded-full text-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-rubraz"
           onChange={(e) => setPassword(e.target.value)}
-
         />
       </div>
       <div className='text-white w-full text-left mb-4 '>
@@ -52,8 +65,7 @@ export const LoginForm = ({setAuth, setCurrentForm}:any) => {
       </button>
       <div className='w-full text-white font-bold'>
         <span className=''>{message}</span>
-
       </div>
     </form>
-  )
-}
+  );
+};
