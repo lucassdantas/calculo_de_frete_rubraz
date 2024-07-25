@@ -64,12 +64,11 @@ const UserPopup: React.FC<UserPopupProps> = ({ onClose }) => {
     }
 
     try {
-      const response = await axios.put(`${backendUrl}updateUser.php`, formData, {
+      const response = await axios.post(`${backendUrl}updateUser.php`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       });
-      console.log(response.data);
       onClose();
     } catch (error) {
       console.error("Erro ao atualizar o perfil:", error);

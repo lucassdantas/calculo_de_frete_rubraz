@@ -16,7 +16,6 @@ $userPhone = clean_input($_POST['userPhone'] ?? '');
 $userCpfOrCnpj = clean_input($_POST['userCpfOrCnpj'] ?? '');
 $userEmail = clean_input($_POST['userEmail'] ?? '');
 $userPassword = clean_input($_POST['userPassword'] ?? '');
-
 // Verifique se a senha foi fornecida e faça o hash se necessário
 $userPasswordHashed = !empty($userPassword) ? password_hash($userPassword, PASSWORD_DEFAULT) : null;
 
