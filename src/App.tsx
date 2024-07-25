@@ -32,6 +32,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<MainComponent setAuth={setAuth} auth={auth} />} />
+          <Route path="*" element={<MainComponent setAuth={setAuth} auth={auth} />} />
         </Routes>
       </Router>
     </UserProvider>

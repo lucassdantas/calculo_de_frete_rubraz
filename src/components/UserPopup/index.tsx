@@ -85,11 +85,11 @@ const UserPopup: React.FC<UserPopupProps> = ({ onClose }) => {
           &times;
         </button>
         <h2 className="text-xl font-bold mb-4">Editar Perfil</h2>
-        <UserPhoto
+        {/* <UserPhoto
           userId={user.userId}
           userHasImage={user.userHasImage}
           onPhotoChange={handlePhotoChange}
-        />
+        /> */}
         <UserForm
           userName={userName}
           userPhone={userPhone}
