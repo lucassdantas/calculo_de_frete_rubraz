@@ -1,9 +1,9 @@
 import axios from 'axios';
-import React, { FormEvent, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaCamera } from 'react-icons/fa';
+import { backendUrl } from '@/constants';
 
-export const RegisterForm = ({ setAuth }: any) => {
+export const RegisterForm = ({ setAuth, setCurrentForm }: any) => {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [email, setEmail] = useState<string>('');
@@ -11,11 +11,16 @@ export const RegisterForm = ({ setAuth }: any) => {
   const [phone, setPhone] = useState<string>('');
   const [photo, setPhoto] = useState<File | null>(null);
   const [message, setMessage] = useState<string>('');
-  const [currentForm, setCurrentForm] = useState('login');
   const navigate = useNavigate();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    
+    if (!username || !password || !email || !cpfCnpj || !phone) {
+      setMessage('Todos os campos são obrigatórios.');
+      return;
+    }
+
     try {
       const formData = new FormData();
       formData.append('username', username);
@@ -25,20 +30,22 @@ export const RegisterForm = ({ setAuth }: any) => {
       formData.append('phone', phone);
       if (photo) formData.append('photo', photo);
 
-      const response = await axios.post('backend/login.php', formData, { withCredentials: true });
-      console.log(response);
-      if (response.data) {
-        setMessage('sucesso!');
-        setAuth(true);
+      const response = await axios.post(`${backendUrl}createAccount.php`, formData, { withCredentials: true });
+      
+      if (response.data.success) {
+        setMessage('Conta criada com sucesso!');
         navigate('/');
-      } else setMessage('Usuário não encontrado. Caso não possua uma conta, crie uma.');
+        setCurrentForm('login');
+      } else {
+        setMessage(response.data.message || 'Erro ao criar a conta.');
+      }
     } catch (error) {
       setMessage('Erro ao conectar ao servidor');
     }
   };
 
   return (
-    <form className="max-w-lg mx-auto p-4 rounded-lg shadow-lg " onSubmit={handleSubmit}>
+    <form className="max-w-lg mx-auto p-4 rounded-lg shadow-lg" onSubmit={handleSubmit}>
       <div className="mb-4">
         <input
           type="text"
@@ -83,8 +90,9 @@ export const RegisterForm = ({ setAuth }: any) => {
         type="submit"
         className="w-full py-4 bg-yellow-rubraz hover:bg-light-yellow-rubraz text-white font-bold rounded-full"
       >
-        Entrar
+        Criar Conta
       </button>
+      {message && <p className="text-yellow-rubraz font-bold mt-4">{message}</p>}
     </form>
   );
 };

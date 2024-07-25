@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { LoginForm } from '@/components/Login/LoginForm';
 import { RegisterForm } from '@/components/Login/RegisterForm';
 import { ForgetPassowrdForm } from '@/components/Login/ForgetPasswordForm';
-import './style.css';
 
 export const Login = ({setAuth}:any) => {
     const [currentForm, setCurrentForm] = useState('login')
@@ -30,7 +29,7 @@ export const Login = ({setAuth}:any) => {
           </div>
 
           {currentForm==='login'          &&<LoginForm setAuth={setAuth} setCurrentForm={setCurrentForm}/>}
-          {currentForm==='register'       &&<RegisterForm setAuth={setAuth}/>}
+          {currentForm==='register'       &&<RegisterForm setAuth={setAuth} setCurrentForm={setCurrentForm}/>}
           {currentForm==='forgetPassword' &&<ForgetPassowrdForm setAuth={setAuth}/>}
           
           <div className="flex sm:flex-row flex-col justify-between mt-4 text-white">
