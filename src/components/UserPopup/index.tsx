@@ -2,8 +2,8 @@ import React, { useState, useContext, useEffect, useRef } from "react";
 import axios from "axios";
 import { UserContext } from "@/context/userContext";
 import { backendUrl } from "@/constants";
-import UserForm from '@/components/UserPopup/UserForm'
 import UserPhoto from "@/components/UserPopup/UserPhoto";
+import UserForm from "@/components/UserPopup/UserForm";
 
 interface UserPopupProps {
   onClose: () => void;
@@ -12,12 +12,11 @@ interface UserPopupProps {
 const UserPopup: React.FC<UserPopupProps> = ({ onClose }) => {
   const userContext = useContext(UserContext);
   if (!userContext) return <div>Carregando...</div>;
-  const user = userContext.currentUser;
 
-  const [userName, setUserName] = useState(user.userName);
-  const [userPhone, setUserPhone] = useState(user.userPhone);
-  const [userCpfOrCnpj, setUserCpfOrCnpj] = useState(user.userCpfOrCnpj);
-  const [userEmail, setUserEmail] = useState(user.userEmail);
+  const [userName, setUserName] = useState(userContext.currentUser.userName);
+  const [userPhone, setUserPhone] = useState(userContext.currentUser.userPhone);
+  const [userCpfOrCnpj, setUserCpfOrCnpj] = useState(userContext.currentUser.userCpfOrCnpj);
+  const [userEmail, setUserEmail] = useState(userContext.currentUser.userEmail);
   const [userPassword, setUserPassword] = useState("");
   const [userPhoto, setUserPhoto] = useState<File | null>(null);
 
@@ -53,22 +52,29 @@ const UserPopup: React.FC<UserPopupProps> = ({ onClose }) => {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("userId", user.userId.toString());
+    formData.append("userId", userContext.currentUser.userId.toString());
     formData.append("userName", userName);
     formData.append("userPhone", userPhone);
     formData.append("userCpfOrCnpj", userCpfOrCnpj);
     formData.append("userEmail", userEmail);
     formData.append("userPassword", userPassword);
     if (userPhoto) {
-      formData.append("userPhoto", userPhoto, `${user.userId}.jpg`);
+      formData.append("userPhoto", userPhoto, `${userContext.currentUser.userId}.jpg`);
     }
 
     try {
       const response = await axios.post(`${backendUrl}updateUser.php`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+        headers: { 'Content-Type': 'multipart/form-data' }
       });
+      if (Number(response.data.user.userId) === userContext.currentUser.userId) {
+        const updatedUser = {
+          ...userContext.currentUser,
+          ...response.data.user,
+          userId:Number(response.data.user.userId)
+        };
+        userContext.setCurrentUser(updatedUser);
+      }
+      
       onClose();
     } catch (error) {
       console.error("Erro ao atualizar o perfil:", error);
