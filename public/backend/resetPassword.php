@@ -1,48 +1,35 @@
 <?php
-// resetPassword.php
-
-header('Content-Type: application/json');
-include_once './config/cors.php'; 
 include_once './config/db.php';
 
-$token = $_GET['token'];
-$newPassword = $_POST['password'];
+$data = json_decode(file_get_contents('php://input'), true);
+$newPassword = password_hash($data['password'], PASSWORD_BCRYPT);
+$resetToken = $data['token'];
 
 try {
     $database = new Database();
     $pdo = $database->getConnection();
 
-    // Verificar token
-    $sql = 'SELECT userId, expires FROM password_resets WHERE token = :token';
+    // Verifica se o token é válido
+    $sql = 'SELECT userId FROM rubraz_users WHERE userResetToken = :resetToken AND userResetTokenExpires > NOW()';
     $stmt = $pdo->prepare($sql);
-    $stmt->execute(['token' => $token]);
+    $stmt->execute(['resetToken' => $resetToken]);
 
     if ($stmt->rowCount() > 0) {
-        $reset = $stmt->fetch(PDO::FETCH_ASSOC);
-        $userId = $reset['userId'];
-        $expires = $reset['expires'];
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if (new DateTime() > new DateTime($expires)) {
-            echo json_encode(['success' => false, 'message' => 'Token expirado']);
-            exit;
-        }
-
-        // Atualizar senha
-        $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-        $sql = 'UPDATE rubraz_users SET userPassword = :password WHERE userId = :userId';
+        // Atualiza a senha do usuário
+        $sql = 'UPDATE rubraz_users SET userPassword = :newPassword, userResetToken = NULL, userResetTokenExpires = NULL WHERE userId = :userId';
         $stmt = $pdo->prepare($sql);
-        $stmt->execute(['password' => $hashedPassword, 'userId' => $userId]);
+        $stmt->execute([
+            'newPassword' => $newPassword,
+            'userId' => $user['userId']
+        ]);
 
-        // Remover token
-        $sql = 'DELETE FROM password_resets WHERE token = :token';
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute(['token' => $token]);
-
-        echo json_encode(['success' => true]);
+        echo json_encode(['success' => true, 'message' => 'Senha redefinida com sucesso.']);
     } else {
-        echo json_encode(['success' => false, 'message' => 'Token inválido']);
+        echo json_encode(['success' => false, 'message' => 'Token de redefinição de senha inválido ou expirado.']);
     }
+
 } catch (PDOException $e) {
-    echo json_encode(['success' => false, 'message' => 'Erro: ' . $e->getMessage()]);
+    echo json_encode(['success' => false, 'message' => 'Erro ao conectar ao banco de dados: ' . $e->getMessage()]);
 }
-?>
