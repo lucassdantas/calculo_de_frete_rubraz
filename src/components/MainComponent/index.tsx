@@ -10,7 +10,7 @@ import { CurrentProductProvider } from '@/context/currentProductContext';
 import { Login } from '@/components/Login';
 import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { backendUrl } from '@/constants';
+import { backendUrl, url } from '@/constants';
 import './style.css';
 
 export const MainComponent = ({ setAuth, auth }: any) => {
@@ -26,10 +26,10 @@ export const MainComponent = ({ setAuth, auth }: any) => {
         if (userContext) {
           userContext.setCurrentUser(response.data.user);
           setAuth(response.data.loggedIn);
-          if(response.data.loggedIn) navigation('/')
+          if(response.data.loggedIn) navigation(url)
         }
       } catch (error) {
-        console.error('Houve um erro ao verificar a sessão!', error);
+        console.log('Houve um erro ao verificar a sessão!', error);
       }
     };
 

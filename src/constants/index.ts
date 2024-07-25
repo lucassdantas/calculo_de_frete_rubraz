@@ -1,6 +1,6 @@
-export const url = 'http://localhost/'
+export const url = 'https://rubrazlajes.com/parceiros/teste/'
 export const userImagesDirectoryUrl = `${url}userImages/`
-export const backendUrl = 'http://localhost/backend/'
+export const backendUrl = 'https://rubrazlajes.com/parceiros/teste/backend/'
 export const priceBySquareMeter = 2
 export const products = {
   laje_tr8644:{

@@ -1,7 +1,7 @@
 import React, { FormEvent, useState } from 'react';
 import axios from 'axios';
 import { Link, Navigate, useNavigate, useSearchParams } from 'react-router-dom';
-import { backendUrl } from '@/constants';
+import { backendUrl, url } from '@/constants';
 import whiteLogoRubraz from "@/assets/Logo-Rubraz-branco.png";
 
 import './style.css'
@@ -23,7 +23,7 @@ const ResetPasswordForm = () => {
       const response = await axios.post(`${backendUrl}resetPassword.php`, { password, token }, { withCredentials: true });
       if (response.data.success) {
         setMessage('Senha redefinida com sucesso!');
-        navigate('/');
+        navigate(url);
       } else {
         setMessage(response.data.message);
       }

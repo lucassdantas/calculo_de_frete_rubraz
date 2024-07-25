@@ -12,8 +12,8 @@ function App() {
     <UserProvider>
       <Router>
         <Routes>
-          <Route path="/" element={<MainComponent setAuth={setAuth} auth={auth} />} />
-          <Route path="resetPassword" element={<ResetPasswordForm />} />
+          <Route path="/parceiros/teste/" element={<MainComponent setAuth={setAuth} auth={auth} />} />
+          <Route path="/resetPassword" element={<ResetPasswordForm />} />
           <Route path="*" element={<MainComponent setAuth={setAuth} auth={auth} />} />
         </Routes>
       </Router>

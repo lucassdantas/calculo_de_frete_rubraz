@@ -1,4 +1,4 @@
-import { backendUrl } from '@/constants';
+import { backendUrl, url } from '@/constants';
 import axios from 'axios';
 import React, { FormEvent, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -22,7 +22,7 @@ export const LoginForm = ({ setAuth, setCurrentForm }: any) => {
         if (userContext) {
           userContext.setCurrentUser(response.data.user);
         }
-        navigate('/');
+        navigate(url);
       } else {
         setMessage('Usuário não encontrado.');
       }
