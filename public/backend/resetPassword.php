@@ -1,6 +1,7 @@
 <?php
+header('Content-Type: application/json');
+include_once './config/cors.php'; 
 include_once './config/db.php';
-
 $data = json_decode(file_get_contents('php://input'), true);
 $newPassword = password_hash($data['password'], PASSWORD_BCRYPT);
 $resetToken = $data['token'];
