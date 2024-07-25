@@ -3,15 +3,17 @@ import { UserContext } from "@/context/userContext";
 import Cropper from 'react-easy-crop';
 import { getCroppedImg } from '@/utils/cropImage';
 import { MdEdit } from "react-icons/md";
+import { userImagesDirectoryUrl } from "@/constants";
 
 interface UserPopupProps {
   onClose: () => void;
 }
 
 const UserPopup: React.FC<UserPopupProps> = ({ onClose }) => {
-  const currentUser = useContext(UserContext);
-  if(!currentUser) return <div>Carregando...</div>
-  const user = currentUser?.currentUser
+  const userContext = useContext(UserContext);
+  if (!userContext) return <div>Carregando...</div>;
+  const user = userContext.currentUser;
+  
   const [userName, setUserName] = useState(user.userName);
   const [userPhone, setUserPhone] = useState(user.userPhone);
   const [userCnpj, setUserCnpj] = useState(user.userCnpj);
@@ -23,7 +25,7 @@ const UserPopup: React.FC<UserPopupProps> = ({ onClose }) => {
   const [zoom, setZoom] = useState(1);
   const [croppedImage, setCroppedImage] = useState<string | null>(null);
   const [isCropping, setIsCropping] = useState(false);
-
+  console.log(user.userHasImage)
   const popupRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -63,18 +65,20 @@ const UserPopup: React.FC<UserPopupProps> = ({ onClose }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     const formData = new FormData();
+    formData.append("userId", user.userId.toString());
     formData.append("userName", userName);
     formData.append("userPhone", userPhone);
     formData.append("userCnpj", userCnpj);
     formData.append("userEmail", userEmail);
     formData.append("userPassword", userPassword);
     if (croppedImage) {
-      formData.append("userPhoto", croppedImage);
+      const blob = await fetch(croppedImage).then(res => res.blob());
+      formData.append("userPhoto", blob, `${user.userId}.jpg`);
     }
 
-    await fetch('https://localhost/public/backend/updateUser.php', {
+    await fetch('http://localhost/public/backend/updateUser.php', {
       method: 'POST',
       body: formData,
     });
@@ -90,7 +94,7 @@ const UserPopup: React.FC<UserPopupProps> = ({ onClose }) => {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
-      <div className="flex flex-col justify-center bg-white p-6 rounded-lg shadow-lg relative w-full max-w-md h-fit max-h-[90vh] overflow-y-scroll " ref={popupRef}>
+      <div className="flex flex-col justify-center bg-white p-6 rounded-lg shadow-lg relative w-full max-w-md h-fit max-h-[90vh] overflow-y-scroll" ref={popupRef}>
         <button
           onClick={onClose}
           className="absolute top-2 right-2 text-gray-600 hover:text-gray-800"
@@ -131,7 +135,7 @@ const UserPopup: React.FC<UserPopupProps> = ({ onClose }) => {
             ) : (
               <div className="relative flex items-end justify-start">
                 <img
-                  src={userPhoto ? `http://localhost:5173/userImages/${user.userId}.jpg`:'http://localhost:5173/userImages/default.jpg'}
+                  src={user.userHasImage ? `${userImagesDirectoryUrl}${user.userId}.jpg` : `${userImagesDirectoryUrl}default.jpg`}
                   alt="Foto do usuário"
                   className="rounded-full w-24 h-24 object-cover -mr-6"
                 />
@@ -142,58 +146,67 @@ const UserPopup: React.FC<UserPopupProps> = ({ onClose }) => {
                   className="hidden"
                   id="photoInput"
                 />
-                <label htmlFor="photoInput" className=" bg-yellow-500 p-1 rounded-full cursor-pointer mb-2">
+                <label htmlFor="photoInput" className="bg-yellow-500 p-1 rounded-full cursor-pointer mb-2">
                   <MdEdit className="text-white text-sm"/>
                 </label>
               </div>
             )}
           </div>
-          <label>
-            Nome:
+          <div>
+            <label className="block text-gray-700">Nome</label>
             <input
               type="text"
               value={userName}
               onChange={(e) => setUserName(e.target.value)}
-              className="block w-full mt-1 border px-2 font-normal"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-opacity-50"
+              required
             />
-          </label>
-          <label>
-            Telefone:
+          </div>
+          <div>
+            <label className="block text-gray-700">Telefone</label>
             <input
               type="text"
               value={userPhone}
               onChange={(e) => setUserPhone(e.target.value)}
-              className="block w-full mt-1 border px-2 font-normal"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-opacity-50"
+              required
             />
-          </label>
-          <label>
-            CNPJ:
+          </div>
+          <div>
+            <label className="block text-gray-700">CNPJ</label>
             <input
               type="text"
               value={userCnpj}
               onChange={(e) => setUserCnpj(e.target.value)}
-              className="block w-full mt-1 border px-2 font-normal"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-opacity-50"
+              required
             />
-          </label>
-          <label>
-            Email:
+          </div>
+          <div>
+            <label className="block text-gray-700">Email</label>
             <input
               type="email"
               value={userEmail}
               onChange={(e) => setUserEmail(e.target.value)}
-              className="block w-full mt-1 border px-2 font-normal"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-opacity-50"
+              required
             />
-          </label>
-          <label>
-            Senha:
+          </div>
+          <div>
+            <label className="block text-gray-700">Senha (deixe em branco para não alterar)</label>
             <input
               type="password"
               value={userPassword}
               onChange={(e) => setUserPassword(e.target.value)}
-              className="block w-full mt-1 border px-2 font-normal"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-opacity-50"
             />
-          </label>
-          <button type="submit" className="mt-4 bg-yellow-500 text-white p-2 rounded">Salvar</button>
+          </div>
+          <button
+            type="submit"
+            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          >
+            Salvar
+          </button>
         </form>
       </div>
     </div>
