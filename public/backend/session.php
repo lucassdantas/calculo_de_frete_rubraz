@@ -9,6 +9,13 @@ if (!isset($_SESSION['userId'])) {
     exit;
 }
 if (isset($_SESSION['userId'])) {
+    $response['user']['userId']         = $_SESSION['userId'];
+    $response['user']['userName']       = $_SESSION['userName'];
+    $response['user']['userEmail']      = $_SESSION['userEmail'];
+    $response['user']['userPhone']      = $_SESSION['userPhone'];
+    $response['user']['userCpfOrCnpj']  = $_SESSION['userCpfOrCnpj'];
+    $response['user']['userHasImage']   = $_SESSION['userHasImage'];
+    
     $response['loggedIn']   = true;
     $response['success']    = true;
 }

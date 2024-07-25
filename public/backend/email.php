@@ -27,7 +27,7 @@ function sendPasswordResetEmail($userEmail, $resetToken) {
         // Conteúdo do e-mail
         $mail->isHTML(true);
         $mail->Subject = 'Redefinição de senha';
-        $mail->Body    = 'Clique no link para redefinir sua senha: <a href="http://localhost/resetPassword.php?token=' . $resetToken . '">Redefinir Senha</a>';
+        $mail->Body    = 'Clique no link para redefinir sua senha: <a href="http://localhost/resetPassword?token=' . $resetToken . '">Redefinir Senha</a>';
 
         $mail->send();
         echo 'O e-mail de redefinição de senha foi enviado.';

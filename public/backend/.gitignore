@@ -1,2 +1,5 @@
 env.php
 emailCredentials.php
+config/emailCredentials.php
+composer.phar
+/vendor/
