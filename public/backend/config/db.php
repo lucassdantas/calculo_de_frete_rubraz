@@ -2,10 +2,10 @@
 
 require_once './databaseCredentials.php';
 class Database {
-    private $host =$devCredentials['dbHost'];
-    private $db_name =$devCredentials['dbName'];
-    private $db_username =$devCredentials['dbUser'];
-    private $db_password =$devCredentials['dbPassword'];
+    private $host        = $devCredentials['dbHost'];
+    private $db_name     = $devCredentials['dbName'];
+    private $db_username = $devCredentials['dbUser'];
+    private $db_password = $devCredentials['dbPassword'];
     public $conn;
 
     public function getConnection() {
