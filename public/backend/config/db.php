@@ -1,9 +1,11 @@
 <?php
+
+require_once './databaseCredentials.php';
 class Database {
-    private $host = 'localhost';
-    private $db_name = 'rubraz';
-    private $db_username = 'root';
-    private $db_password = '';
+    private $host =$devCredentials['dbHost'];
+    private $db_name =$devCredentials['dbName'];
+    private $db_username =$devCredentials['dbUser'];
+    private $db_password =$devCredentials['dbPassword'];
     public $conn;
 
     public function getConnection() {
