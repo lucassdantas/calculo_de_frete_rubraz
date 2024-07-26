@@ -1,4 +1,4 @@
-export const url = 'https://rubrazlajes.com/parceiros/teste/'
+export const url = '/parceiros/teste/'
 export const userImagesDirectoryUrl = `${url}userImages/`
 export const backendUrl = 'https://rubrazlajes.com/parceiros/teste/backend/'
 export const priceBySquareMeter = 2
