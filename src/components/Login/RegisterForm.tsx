@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { backendUrl } from '@/constants';
+import { backendUrl, url } from '@/constants';
 
 export const RegisterForm = ({ setAuth, setCurrentForm }: any) => {
   const [username, setUsername] = useState<string>('');
@@ -34,7 +34,7 @@ export const RegisterForm = ({ setAuth, setCurrentForm }: any) => {
       
       if (response.data.success) {
         setMessage('Conta criada com sucesso!');
-        navigate('/');
+        navigate(url);
         setCurrentForm('login');
       } else {
         setMessage(response.data.message || 'Erro ao criar a conta.');

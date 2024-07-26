@@ -20,28 +20,25 @@ export const Main: React.FC = () => {
     knownSquareMeter: '',
     unknownSquareMeters: [{ vigotaQuantity: 0, vigotaSize: 0 }]
   });
-  const [productValue, setProductValue] = useState<number>(0); // Adicione este estado
+  const [productValue, setProductValue] = useState<number>(0);
 
   const handleResponseSuccess = (responseData: string) => {
     if (responseData) {
       const distanceValue = (Number(responseData) / 1000 * 2).toFixed(2);
-      const distancePrice = freightCalculation(Number(distanceValue), pricePerKmDistance)
-      setProductValue(Number(productValue)+Number(distancePrice))
+      const distancePrice = freightCalculation(Number(distanceValue), pricePerKmDistance);
+      setProductValue(prevValue => prevValue + distancePrice);
       setDistanceText(distanceValue.replace('.', ','));
       setInvisible('');
     }
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>, completeAddress: string) => {
     event.preventDefault();
     setIsRequestLoading(true);
-    const form = event.currentTarget;
-    const formData = new FormData(form);
-
     try {
-      const response: AxiosResponse = await axios.post(backendUrl+'/calcular_distancia.php', formData);
-      console.log('response' + response);
+      const response: AxiosResponse = await axios.post(`${backendUrl}calcular_distancia.php`, { completeAddress });
       handleResponseSuccess(response.data.distanceValue);
+      console.log
     } catch (error) {
       console.error('Erro ao enviar os dados:', error);
     } finally {
@@ -50,13 +47,13 @@ export const Main: React.FC = () => {
   };
 
   const handleFormStep = (formStepValue: number) => {
-    if (formStepValue < 0) formStepValue = 0;
-    setFormStep(formStepValue);
+    setFormStep(Math.max(formStepValue, 0));
   };
 
   const formatCurrency = (value: number): string => {
     return value.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   };
+
   return (
     <main className="w-full min-h-[100vh] flex justify-center items-center z-10 px-4 lg:pt-[0px] pb-12">
       <div className="max-w-[1080px] flex flex-col w-full items-center justify-center text-white gap-4">
