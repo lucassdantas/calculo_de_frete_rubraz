@@ -13,6 +13,7 @@ export const Main: React.FC = () => {
   const [distanceText, setDistanceText] = useState<string>('');
   const [invisible, setInvisible] = useState<string>('hidden invisible');
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [distanceError, setDistanceError] = useState<string>('')
   const [isRequestLoading, setIsRequestLoading] = useState<boolean>(false);
   const [formStep, setFormStep] = useState<number>(0);
   const [formData, setFormData] = useState({
@@ -35,10 +36,11 @@ export const Main: React.FC = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>, completeAddress: string) => {
     event.preventDefault();
     setIsRequestLoading(true);
+    setDistanceError('')
     try {
       const response: AxiosResponse = await axios.post(`${backendUrl}calcular_distancia.php`, { completeAddress });
-      handleResponseSuccess(response.data.distanceValue);
-      console.log
+      if(response.data.distanceValue) handleResponseSuccess(response.data.distanceValue);
+      else setDistanceError('Digite o seu endereço completo!')
     } catch (error) {
       console.error('Erro ao enviar os dados:', error);
     } finally {
@@ -48,6 +50,7 @@ export const Main: React.FC = () => {
 
   const handleFormStep = (formStepValue: number) => {
     setFormStep(Math.max(formStepValue, 0));
+    setDistanceText('')
   };
 
   const formatCurrency = (value: number): string => {
@@ -77,9 +80,10 @@ export const Main: React.FC = () => {
         {!isRequestLoading && productValue > 0 && (
           <div id="productValue" className="mt-4 w-full max-w-xl">
             <h3 className='font-bold mb-2 text-xl'>Resultado</h3>
-            {distanceText && <p>A distância de ida e volta do caminhão ao destino é: <span className='font-bold'>{distanceText} km</span></p>}
-            <p>O valor total do produto é: <span className='font-bold'>R$ {formatCurrency(productValue)}</span></p>
-            {distanceText && productValue && <p>O valor total do produto com frete é de: <span className='font-bold'>R$ {formatCurrency(productValue)}</span></p>}
+            {distanceError && <p>Digite o endereço completo! </p>}
+            {distanceText  && <p>A distância de ida e volta do caminhão ao destino é: <span className='font-bold'>{distanceText} km</span></p>}
+            {!distanceText && productValue && <p>O valor total do produto é: <span className='font-bold'>R$ {formatCurrency(productValue)}</span></p>}
+            {distanceText  && productValue && <p>O valor total do produto com frete é de: <span className='font-bold'>R$ {formatCurrency(productValue)}</span></p>}
           </div>
         )}
       </div>

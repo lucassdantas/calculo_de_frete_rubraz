@@ -28,6 +28,7 @@ export const ForgetPasswordForm = () => {
           type="email"
           placeholder="Digite seu e-mail"
           name='email'
+          maxLength={50}
           id='email'
           className="w-full p-4 rounded-full text-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-rubraz"
           onChange={(e) => setEmail(e.target.value)}

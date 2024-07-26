@@ -44,6 +44,7 @@ const ResetPasswordForm = () => {
         <div className="mb-4">
           <input
             type="password"
+            maxLength={50}
             placeholder="Digite sua nova senha"
             className="w-full p-4 rounded-full text-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-rubraz"
             onChange={(e) => setPassword(e.target.value)}
@@ -52,6 +53,7 @@ const ResetPasswordForm = () => {
         <div className="mb-4">
           <input
             type="password"
+            maxLength={50}
             placeholder="Confirme sua nova senha"
             className="w-full p-4 rounded-full text-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-rubraz"
             onChange={(e) => setConfirmPassword(e.target.value)}
