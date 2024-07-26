@@ -2,7 +2,7 @@ import { UserContext } from '@/context/userContext';
 import React, { useContext, useState, useRef } from 'react';
 import { MdOutlineArrowDropDownCircle } from "react-icons/md";
 import UserPopup from '../UserPopup';
-import { userImagesDirectoryUrl, backendUrl } from '@/constants';
+import { userImagesDirectoryUrl, backendUrl, url } from '@/constants';
 import axios from 'axios';
 
 export const MyAccountIcon = () => {
@@ -30,9 +30,7 @@ export const MyAccountIcon = () => {
     try {
       const response = await axios.post(`${backendUrl}logout.php`, {}, { withCredentials: true });
       if (response.data.success) {
-        // Redireciona ou atualiza o estado de autenticação conforme necessário
-        // Exemplo:
-        window.location.href = '/'; // Redirecionar para a página de login
+        window.location.href = url; // Redirecionar para a página de login
       } else {
         console.error('Erro ao deslogar:', response.data.message);
       }
