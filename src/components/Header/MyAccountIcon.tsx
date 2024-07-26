@@ -70,7 +70,7 @@ export const MyAccountIcon = () => {
 
 const AccountMenu = ({ handlePopupOpen, handlePopupClose, handleLogout }: { handlePopupOpen: () => void, handlePopupClose: () => void, handleLogout: () => void }) => {
   return (
-    <div className="flex flex-col divide-y-2 gap-4 bg-white p-4 absolute -mt-4">
+    <div className="flex flex-col divide-y-2 gap-4 bg-white p-4 absolute -mt-4 rounded-[20px]">
       <span className="font-normal cursor-pointer py-2" onClick={handlePopupOpen}>
         Configurações
       </span>

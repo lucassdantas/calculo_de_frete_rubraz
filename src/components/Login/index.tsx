@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { LoginForm } from '@/components/Login/LoginForm';
 import { RegisterForm } from '@/components/Login/RegisterForm';
 import { ForgetPasswordForm } from "@/components/Login/ForgetPasswordForm";
+import { wppForNeedHelp } from "@/constants";
 
 export const Login = ({setAuth}:any) => {
     const [currentForm, setCurrentForm] = useState('login')
@@ -37,7 +38,7 @@ export const Login = ({setAuth}:any) => {
             {currentForm==="register"&& <a onClick={() => setCurrentForm('login')} className="hover:underline  cursor-pointer">Faça login</a>}
             {currentForm==="forgetPassword"&& <a onClick={() => setCurrentForm('login')} className="hover:underline  cursor-pointer">Faça login</a>}
             
-            <a href="https://api.whatsapp.com/send/?phone=5521979808794&text=Ol%C3%A1%2C+venho+atrav%C3%A9s+do+site+e+gostaria+de+or%C3%A7amento.+Poderia+me+ajudar%3F&type=phone_number&app_absent=0" target='_blank' className="hover:underline">Precisa de ajuda?</a>
+            <a href={wppForNeedHelp} target='_blank' className="hover:underline">Precisa de ajuda?</a>
           </div>
         </div>
       </div>
