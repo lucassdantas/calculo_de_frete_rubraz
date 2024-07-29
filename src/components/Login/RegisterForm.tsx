@@ -13,6 +13,54 @@ export const RegisterForm = ({ setAuth, setCurrentForm }: any) => {
   const [message, setMessage] = useState<string>('');
   const navigate = useNavigate();
 
+  const formatCpfCnpj = (value: string) => {
+    const cleanedValue = value.replace(/\D/g, '');
+
+    if (cleanedValue.length <= 11) {
+      return cleanedValue
+        .replace(/(\d{3})(\d)/, '$1.$2')
+        .replace(/(\d{3})(\d)/, '$1.$2')
+        .replace(/(\d{3})(\d{1,2})$/, '$1-$2')
+        .substring(0, 14);
+    } else {
+      return cleanedValue
+        .replace(/(\d{2})(\d)/, '$1.$2')
+        .replace(/(\d{3})(\d)/, '$1.$2')
+        .replace(/(\d{3})(\d)/, '$1/$2')
+        .replace(/(\d{4})(\d{1,2})$/, '$1-$2')
+        .substring(0, 18);
+    }
+  };
+
+  const formatPhone = (value: string) => {
+    const cleanedValue = value.replace(/\D/g, '');
+
+    if (cleanedValue.length <= 10) {
+      // Telefone fixo
+      return cleanedValue
+        .replace(/(\d{2})(\d)/, '($1) $2')
+        .replace(/(\d{4})(\d{4})$/, '$1-$2')
+        .substring(0, 14);
+    } else if (cleanedValue.length <= 11) {
+      // Celular
+      return cleanedValue
+        .replace(/(\d{2})(\d)/, '($1) $2')
+        .replace(/(\d{5})(\d{4})$/, '$1-$2')
+        .substring(0, 15);
+    } else {
+      // Número com código do país
+      return cleanedValue;
+    }
+  };
+
+  const handleCpfCnpjChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCpfCnpj(formatCpfCnpj(e.target.value));
+  };
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPhone(formatPhone(e.target.value));
+  };
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     
@@ -67,19 +115,19 @@ export const RegisterForm = ({ setAuth, setCurrentForm }: any) => {
       <div className="mb-4">
         <input
           type="text"
-          maxLength={50}
+          value={cpfCnpj}
           placeholder="CPF/CNPJ"
           className="w-full p-4 rounded-full text-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-rubraz"
-          onChange={(e) => setCpfCnpj(e.target.value)}
+          onChange={handleCpfCnpjChange}
         />
       </div>
       <div className="mb-4">
         <input
           type="tel"
-          maxLength={50}
-          placeholder="Telefone"
+          value={phone}
+          placeholder="Telefone/Celular com DDD"
           className="w-full p-4 rounded-full text-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-rubraz"
-          onChange={(e) => setPhone(e.target.value)}
+          onChange={handlePhoneChange}
         />
       </div>
       <div className="mb-4">
