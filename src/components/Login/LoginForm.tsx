@@ -39,6 +39,7 @@ export const LoginForm = ({ setAuth, setCurrentForm }: any) => {
           placeholder="E-mail"
           name='email'
           id='email'
+          maxLength={100}
           className="w-full p-4 rounded-full text-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-rubraz"
           onChange={(e) => setEmail(e.target.value)}
         />
@@ -48,14 +49,15 @@ export const LoginForm = ({ setAuth, setCurrentForm }: any) => {
           type="password"
           name='password'
           id='password'
+          maxLength={255}
           placeholder="Senha"
           className="w-full p-4 rounded-full text-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-rubraz"
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
-      <div className='text-white w-full text-left mb-4 '>
+      {/* <div className='text-white w-full text-left mb-4 '>
         <span className='cursor-pointer' onClick={() => setCurrentForm('forgetPassword')}>Esqueci minha senha</span>
-      </div>
+      </div> */}
       <button type="submit" className="w-full py-4 bg-yellow-rubraz hover:bg-light-yellow-rubraz text-white font-bold rounded-full mb-4">
         Entrar
       </button>

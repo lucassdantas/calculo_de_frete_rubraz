@@ -1,7 +1,7 @@
 import React, { FormEvent, useState } from 'react';
 import axios from 'axios';
 import { Link, Navigate, useNavigate, useSearchParams } from 'react-router-dom';
-import { backendUrl, url } from '@/constants';
+import { backendUrl, url, wppForNeedHelp } from '@/constants';
 import whiteLogoRubraz from "@/assets/Logo-Rubraz-branco.png";
 
 import './style.css'
@@ -44,6 +44,7 @@ const ResetPasswordForm = () => {
         <div className="mb-4">
           <input
             type="password"
+            maxLength={50}
             placeholder="Digite sua nova senha"
             className="w-full p-4 rounded-full text-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-rubraz"
             onChange={(e) => setPassword(e.target.value)}
@@ -52,6 +53,7 @@ const ResetPasswordForm = () => {
         <div className="mb-4">
           <input
             type="password"
+            maxLength={50}
             placeholder="Confirme sua nova senha"
             className="w-full p-4 rounded-full text-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-rubraz"
             onChange={(e) => setConfirmPassword(e.target.value)}
@@ -63,7 +65,7 @@ const ResetPasswordForm = () => {
         {message && <p className="text-center mt-4 font-bold text-yellow-rubraz">{message}</p>}
         <div className="flex sm:flex-row flex-col sm:justify-between items-center mt-4 text-white">
           <Link className="hover:underline  cursor-pointer" to='/'>Faça login</Link>
-          <a href="https://api.whatsapp.com/send/?phone=5521979808794&text=Ol%C3%A1%2C+venho+atrav%C3%A9s+do+site+e+gostaria+de+or%C3%A7amento.+Poderia+me+ajudar%3F&type=phone_number&app_absent=0" target='_blank' className="hover:underline">Precisa de ajuda?</a>
+          <a href={wppForNeedHelp} target='_blank' className="hover:underline">Precisa de ajuda?</a>
         </div>
       </form>
     </div>

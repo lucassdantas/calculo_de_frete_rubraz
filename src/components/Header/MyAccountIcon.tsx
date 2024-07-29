@@ -2,7 +2,7 @@ import { UserContext } from '@/context/userContext';
 import React, { useContext, useState, useRef } from 'react';
 import { MdOutlineArrowDropDownCircle } from "react-icons/md";
 import UserPopup from '../UserPopup';
-import { userImagesDirectoryUrl, backendUrl } from '@/constants';
+import { userImagesDirectoryUrl, backendUrl, url } from '@/constants';
 import axios from 'axios';
 
 export const MyAccountIcon = () => {
@@ -30,9 +30,7 @@ export const MyAccountIcon = () => {
     try {
       const response = await axios.post(`${backendUrl}logout.php`, {}, { withCredentials: true });
       if (response.data.success) {
-        // Redireciona ou atualiza o estado de autenticação conforme necessário
-        // Exemplo:
-        window.location.href = '/'; // Redirecionar para a página de login
+        window.location.href = url; // Redirecionar para a página de login
       } else {
         console.error('Erro ao deslogar:', response.data.message);
       }
@@ -72,7 +70,7 @@ export const MyAccountIcon = () => {
 
 const AccountMenu = ({ handlePopupOpen, handlePopupClose, handleLogout }: { handlePopupOpen: () => void, handlePopupClose: () => void, handleLogout: () => void }) => {
   return (
-    <div className="flex flex-col divide-y-2 gap-4 bg-white p-4 absolute -mt-4">
+    <div className="flex flex-col divide-y-2 gap-4 bg-white p-4 absolute -mt-4 rounded-[20px]">
       <span className="font-normal cursor-pointer py-2" onClick={handlePopupOpen}>
         Configurações
       </span>
