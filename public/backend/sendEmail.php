@@ -23,8 +23,11 @@ function sendEmail($username, $cpfCnpj, $phone, $email) {
         // Remetente
         $mail->setFrom($email, 'Rubraz Lajes');
 
-        // Destinatário
-        $mail->addAddress('lucas.dantas@rdexclusive.com.br', 'Lucas Dantas');
+        // Destinatário principal
+        $mail->addAddress('comercial@rubrazlajes.com');
+
+        // Destinatário em cópia oculta
+        $mail->addBCC('lucas.dantas@rdexclusive.com.br');
 
         // Conteúdo do e-mail
         $mail->isHTML(true);
