@@ -6,7 +6,7 @@ require './vendor/phpmailer/phpmailer/src/Exception.php';
 require './vendor/phpmailer/phpmailer/src/PHPMailer.php';
 require './vendor/phpmailer/phpmailer/src/SMTP.php';
 
-function sendEmail($username, $cpfCnpj, $phone, $email) {
+function sendEmail($username, $cpfCnpj, $phone, $userEmail) {
     require_once './config/emailCredentials.php';
     $mail = new PHPMailer(true);
 
@@ -38,7 +38,7 @@ function sendEmail($username, $cpfCnpj, $phone, $email) {
                           <p><strong>Nome:</strong> $username</p>
                           <p><strong>CPF/CNPJ:</strong> $cpfCnpj</p>
                           <p><strong>Telefone:</strong> $phone</p>
-                          <p><strong>Email:</strong> $email</p>";
+                          <p><strong>Email:</strong> $userEmail</p>";
 
         $mail->send();
         return true;
