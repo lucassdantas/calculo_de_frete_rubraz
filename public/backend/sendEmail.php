@@ -1,4 +1,4 @@
-<?php
+<?php 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -20,6 +20,9 @@ function sendEmail($username, $cpfCnpj, $phone, $userEmail) {
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port       = 587;
 
+        // Define o charset para UTF-8
+        $mail->CharSet = 'UTF-8';
+        
         // Remetente
         $mail->setFrom($email, 'Rubraz Lajes');
 
